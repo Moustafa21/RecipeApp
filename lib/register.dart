@@ -1,11 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
-import 'package:untitled/login.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'login.dart';
+
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
 
@@ -33,32 +33,34 @@ class _RegisterState extends State<Register> {
   var mobileValidator=MultiValidator([
     RequiredValidator(errorText: 'Mobile is required'),
     MinLengthValidator(11, errorText: 'mobile is not valid'),
-
   ]);
+  bool visiblityPassword = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        centerTitle: false,
-
+        automaticallyImplyLeading: false,
         backgroundColor: Color(0xff174354),
-        titleSpacing: 30,
-        title: Text("Register",style: TextStyle(fontSize: 30),
+        centerTitle: true,
+        title: Text("انشاء حساب جديد",style: TextStyle(fontSize: 20),
         ),
       ),
-      body:  Builder(
-        builder: (context) {
-          return ModalProgressHUD(
-            inAsyncCall: spinner,
-            child: ListView(
+      body:  Directionality(
+        textDirection: TextDirection.rtl,
+        child: Builder(
+            builder: (context) {
+              return ModalProgressHUD(
+                inAsyncCall: spinner,
+                child: ListView(
                   padding: EdgeInsets.all(15),
                   children: [
                     Form(
-                      key: _formkey,
+                        key: _formkey,
                         child: Column(
                           children:
                           [SizedBox(height: 40,),
-                            Text('Create a new account',style: TextStyle(fontSize: 20),),
+                            Text('انشئ حساب جديد',style: TextStyle(fontSize: 20),),
                             SizedBox(height: 20,),
                             TextFormField(
                               validator: nameValidator,
@@ -66,8 +68,8 @@ class _RegisterState extends State<Register> {
                                 first_name =val ;
                               },
                               decoration: const InputDecoration(
-                                hintText: "First Name",
-                                labelText: "First name",
+                                hintText: "الاسم الاول",
+                                labelText: "الاسم الاول",
                                 border: OutlineInputBorder(),
                               ),
                             ),
@@ -78,8 +80,8 @@ class _RegisterState extends State<Register> {
                                 last_name =val ;
                               },
                               decoration: const InputDecoration(
-                                hintText: "Last Name",
-                                labelText: "last name",
+                                hintText: "الاسم الاخير",
+                                labelText: "اللقب",
                                 border: OutlineInputBorder(),
                               ),
                             ),
@@ -90,8 +92,8 @@ class _RegisterState extends State<Register> {
                                 email =val ;
                               },
                               decoration: const InputDecoration(
-                                hintText: "Email",
-                                labelText: "email",
+                                hintText: "البريد الالكتروني",
+                                labelText: "البريد الالكتروني",
                                 border: OutlineInputBorder(),
                               ),
                             ),
@@ -99,13 +101,26 @@ class _RegisterState extends State<Register> {
                             TextFormField(
                               keyboardType: TextInputType.text,
                               validator: passwordValidator,
-                              obscureText: true,
+                              obscureText: visiblityPassword,
                               onChanged: (val){
                                 password =val ;
                               },
-                              decoration: const InputDecoration(
-                                hintText: "Password",
-                                labelText: "Password",
+                              decoration: InputDecoration(
+                                hintText: "كلمة المرور",
+                                labelText: "كلمة المرور",
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                      visiblityPassword
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: Colors.indigo),
+                                  onPressed: () {
+                                    setState(() {
+                                      //visiblityPassword? Icons.visibility : Icons.visibility_off;
+                                      visiblityPassword = !visiblityPassword;
+                                    });
+                                  },
+                                ),
                                 border: OutlineInputBorder(),
                               ),
                             ),
@@ -117,8 +132,8 @@ class _RegisterState extends State<Register> {
                                 mobile =val ;
                               },
                               decoration: const InputDecoration(
-                                hintText: "Mobile",
-                                labelText: "Mobile",
+                                hintText: "رقم الهاتف",
+                                labelText: "رقم الهاتف",
                                 border: OutlineInputBorder(),
                               ),
                             ),
@@ -126,7 +141,7 @@ class _RegisterState extends State<Register> {
                         )
                     ),
                     FlatButton(
-                        color: Colors.teal[300],
+                        color: Colors.teal[500],
                         padding: EdgeInsets.all(20),
                         onPressed: ()async{
                           if(_formkey.currentState!.validate()) {
@@ -134,10 +149,10 @@ class _RegisterState extends State<Register> {
                                 .checkConnectivity());
                             if (connectivityResult != ConnectivityResult.mobile&&
                                 connectivityResult != ConnectivityResult.wifi) {
-                               Scaffold.of(context).showSnackBar(
-                                   SnackBar(content: Text('no internet connection')
-                                   )
-                               );
+                              Scaffold.of(context).showSnackBar(
+                                  SnackBar(content: Text('لا يوجد اتصال بالانترنت')
+                                  )
+                              );
                             }
                             else {
                               setState(() {
@@ -145,7 +160,14 @@ class _RegisterState extends State<Register> {
                               });
                               try{
                                 await _auth.createUserWithEmailAndPassword(email: email, password: password);
-                                Navigator.push(context, MaterialPageRoute(builder : (context)=>Login()));
+                                FirebaseFirestore.instance.collection("users").doc(email).set({
+                                  'firstName': first_name,
+                                  'lastName' : last_name,
+                                  'email' : email,
+                                  'Mobile': mobile,
+                                }
+                                );
+                                Navigator.push(context, MaterialPageRoute(builder : (context)=> Login()));
                                 setState(() {
                                   spinner = false;
                                 });
@@ -155,11 +177,11 @@ class _RegisterState extends State<Register> {
                                   spinner = false;
                                 });
                                 if(e is FirebaseAuthException){
-                                   if(e.code =='email-already-in-use'){
-                                     Scaffold.of(context).showSnackBar(SnackBar(content: Text('email already in use')
-                                     )
-                                     );
-                                   }
+                                  if(e.code =='email-already-in-use'){
+                                    Scaffold.of(context).showSnackBar(SnackBar(content: Text('البريد الالكتروني مستخدم بالفعل')
+                                    )
+                                    );
+                                  }
                                 }
                               }
 
@@ -167,24 +189,25 @@ class _RegisterState extends State<Register> {
                           }
                         },
                         child: Text
-                          ('Register',
+                          ('انشئ',
                           style: TextStyle(fontSize: 20),)
                     ),
                     SizedBox(height: 10,),
                     InkWell(
                       onTap: (){ Navigator.pop(context);},
                       child: Text(
-                        'already have account?',
+                        'هل تملك حساب بالفعل؟',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                           fontSize: 20,
+                          fontSize: 20,
                           color: Colors.blue,),
                       ),
                     )
                   ],
-            ),
-          );
-        }
+                ),
+              );
+            }
+        ),
       ),
     );
   }

@@ -5,6 +5,9 @@ import 'package:connectivity/connectivity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'chatCard.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 class Chat extends StatefulWidget {
   @override
@@ -34,94 +37,96 @@ class _ChatState extends State<Chat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-
-        title: const Text('Caht'),
+      backgroundColor: Colors.grey[300],
+      appBar: AppBar(leading:BackButton(),
+        backgroundColor: Color(0xff174354),
       ),
-      body: Column(
-        children: [
-          StreamBuilder<QuerySnapshot>(
-              stream: _fireStore
-                  .collection('Chat')
-                  .orderBy('sort', descending: false)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                var items = snapshot.data!.docs;
-                List<Widget> chatList = [];
-                for (var item in items) {
-                  String msg = (item.data() as dynamic)['Msg'];
-                  String sender = (item.data() as dynamic)['sender'];
-                  if (sender == logedInUSer) {
-                    isMe = true;
-                  } else {
-                    isMe = false;
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Column(
+          children: [
+            StreamBuilder<QuerySnapshot>(
+                stream: _fireStore
+                    .collection('Chat')
+                    .orderBy('sort', descending: false)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
-                  var itemList = ChatCard(
-                    Sender: sender,
-                    Msg: msg,
-                    isMe: isMe,
+                  var items = snapshot.data!.docs;
+                  List<Widget> chatList = [];
+                  for (var item in items) {
+                    String msg = (item.data() as dynamic)['Msg'];
+                    String sender = (item.data() as dynamic)['sender'];
+                    if (sender == logedInUSer) {
+                      isMe = true;
+                    } else {
+                      isMe = false;
+                    }
+                    var itemList = ChatCard(
+                      Sender: sender,
+                      Msg: msg,
+                      isMe: isMe,
+                    );
+                    chatList.addAll([itemList,SizedBox(height: 10,)]);
+                  }
+
+                  return Expanded(
+                    child: ListView.builder(
+
+                      padding: EdgeInsets.all(15),
+                      itemCount: chatList.length,
+                      itemBuilder: (context,index){
+                        WidgetsBinding.instance?.addPostFrameCallback((_) {
+                          if(scrollController.hasClients){
+                            scrollController.jumpTo(scrollController.position.maxScrollExtent);
+                          }
+                        });
+                        return Column(children: [chatList[index]],);
+                      },
+                    ),
                   );
-                  chatList.addAll([itemList,SizedBox(height: 10,)]);
-                }
-
-                return Expanded(
-                  child: ListView.builder(
-
-                    padding: EdgeInsets.all(15),
-                    itemCount: chatList.length,
-                    itemBuilder: (context,index){
-                      WidgetsBinding.instance?.addPostFrameCallback((_) {
-                        if(scrollController.hasClients){
-                          scrollController.jumpTo(scrollController.position.maxScrollExtent);
-                        }
-                      });
-                      return Column(children: [chatList[index]],);
-                    },
-                  ),
-                );
-              }),
-          Container(
-            padding: EdgeInsets.all(12),
-            color: Colors.grey[200],
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    onChanged: (val) {
-                      newMsg = val;
-                    },
-                    controller: _conttroller,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      hintText: 'Send message',
+                }),
+            Container(
+              padding: EdgeInsets.all(12),
+              color: Colors.grey[200],
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      onChanged: (val) {
+                        newMsg = val;
+                      },
+                      controller: _conttroller,
+                      decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        hintText: 'ارسل سالة',
+                      ),
                     ),
                   ),
-                ),
-                IconButton(
-                  onPressed: () async {
-                    _conttroller.clear();
-                    await _fireStore.collection('Chat').add({
-                      'Msg': newMsg,
-                      'sort': DateTime.now().microsecondsSinceEpoch,
-                      'sender': logedInUSer,
-                    });
-                  },
-                  icon: Icon(
-                    Icons.send,
-                    color: Colors.teal,
-                    size: 30,
+                  IconButton(
+                    onPressed: () async {
+                      _conttroller.clear();
+                      await _fireStore.collection('Chat').add({
+                        'Msg': newMsg,
+                        'sort': DateTime.now().microsecondsSinceEpoch,
+                        'sender': logedInUSer,
+                      });
+                    },
+                    icon: Icon(
+                      Icons.send,
+                      color: Colors.teal[500],
+                      size: 30,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

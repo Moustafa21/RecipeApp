@@ -9,10 +9,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class imgEdit extends StatefulWidget {
   final String category;
+  final String country;
   final String docID;
   final String title;
 
-  const imgEdit(this.category,  this.docID, this.title);
+  const imgEdit(this.category,  this.country,this.docID, this.title);
 
   @override
   _imgEditState createState() => _imgEditState();
@@ -54,62 +55,70 @@ class _imgEditState extends State<imgEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        centerTitle: false,
+        centerTitle: true,
         backgroundColor: Color(0xff174354),
         titleSpacing: 30,
-        title: Text("Edit ${widget.title} image",style: TextStyle(fontSize: 30),
+        title: Text("${widget.title} تحديث الصورة لـ",style: TextStyle(fontSize: 20),
         ),
       ),
-      body: ModalProgressHUD(
-        inAsyncCall: showSpinner,
-        child: ListView(
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(padding: EdgeInsets.all(5)),
-                Card(
-                    child:
-                    (_image!=null)
-                        ?Image.file(_image,width: 100, height: 100,fit: BoxFit.fill,)
-                        :Image(image: AssetImage ('images/Edit.png'),width: 60,height: 60,)
-                ),
-                InkWell(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Edit Image',
-                        style: TextStyle(
-                          color: Colors.teal[600],
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                      Icon(Icons.add_circle,color: Colors.teal[500],),
-                    ],
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: ModalProgressHUD(
+          inAsyncCall: showSpinner,
+          child: ListView(
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(padding: EdgeInsets.all(30)),
+                  Card(
+                      child:
+                      (_image!=null)
+                          ?Image.file(_image,width: 150, height: 150,fit: BoxFit.fill,)
+                          :Image(image: AssetImage ('assets/upload.png'),width: 160,height: 160,)
                   ),
-                  onTap: getImage,
-                ),
+                  InkWell(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'اضف صورة',
+                          style: TextStyle(
+                            color: Colors.teal[600],
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                        Icon(Icons.add_circle,color: Colors.teal[500],),
+                      ],
+                    ),
+                    onTap: getImage,
+                  ),
 
 
-                Padding(padding: EdgeInsets.all(10)),
-                RaisedButton(
-                  onPressed: () async {
-                    await uploadPic(context);
-                    _firestore.collection("Items").doc(widget.category).collection(widget.category).doc(widget.docID).update({
-                      'url': downloadUrl,
-                    }
-                    ).then((value) =>
-                        Navigator.of(context).pop());
+                  Padding(padding: EdgeInsets.all(50)),
+                  ButtonTheme(
+                    height: 50,
+                    minWidth:100,
+                    child: RaisedButton(
+                      onPressed: () async {
+                        await uploadPic(context);
+                        _firestore.collection("Items").doc(widget.country).collection(widget.country).doc(widget.category).collection(widget.category).doc(widget.docID).update({
+                          'url': downloadUrl,
+                        }
+                        ).then((value) =>
+                            Navigator.of(context).pop());
 
-                  },
-                  child: Text('Edit Image'),
-                  color: Colors.teal[500],
-                ),
-              ],
-            )
-          ],
+                      },
+                      child: Text('حدث الصورة',style: TextStyle(color: Colors.white,fontSize: 20),),
+                      color: Colors.teal[500],
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

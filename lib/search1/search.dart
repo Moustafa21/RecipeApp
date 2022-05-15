@@ -52,8 +52,10 @@ class _SearchState extends State<Search> {
       )),
 
       appBar: AppBar(
+        backgroundColor: Color(0xff174354),
         title: TextField(
           decoration: InputDecoration(
+            hintStyle: TextStyle(color: Colors.white),
             hintText: 'Search Recipes',
           ),
           controller: searchController,

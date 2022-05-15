@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/search1/search.dart';
 import 'account.dart';
@@ -10,17 +12,26 @@ import 'home/newHome.dart';
 import 'login.dart';
 import 'register.dart';
 
-class bottomNavBar extends StatefulWidget {
-  const bottomNavBar({ Key? key }) : super(key: key);
+class adminNavBar extends StatefulWidget {
+  const adminNavBar({ Key? key }) : super(key: key);
 
   @override
-  _bottomNavBarState createState() => _bottomNavBarState();
+  _adminNavBarState createState() => _adminNavBarState();
 }
 
-class _bottomNavBarState extends State<bottomNavBar> {
-
+class _adminNavBarState extends State<adminNavBar> {
+  final _firestore = FirebaseFirestore.instance;
+  final _auth = FirebaseAuth.instance;
   late List pages;
-
+  LogOut(){
+    onpressed: () {
+      _auth.signOut();
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Login()),
+      );
+    };
+  }
 
   int selectPageIndex = 0;
 
@@ -30,25 +41,21 @@ class _bottomNavBarState extends State<bottomNavBar> {
         'page': Home(),
         'label': "الرئيسية",
       },
-      /*{
-      'page': Chat(),
-      'label': 'chats',
-    },*/
       {
         'page': FilterCountry(),
         'label': "البلاد",
       },
       {
-        'page': Favorites(),
-        'label': "المفضلة",
+        'page': Add(),
+        'label': "اضافة وصفة جديدة",
       },
       {
-        'page': Account(),
-        'label': "الحساب",
+        'page': Chat(),
+        'label': "تواصل",
       },
       {
-        'page': Search(),
-        'label': "بحث",
+        'page': LogOut(),
+        'label': "تسجيل الخروج",
       },
 
     ];
@@ -90,16 +97,16 @@ class _bottomNavBarState extends State<bottomNavBar> {
             label: "الاقسام",
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: "المفضلة"
+            icon: Icon(Icons.add),
+            label: "اضافة",
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              label: "حسابي"
+              icon: Icon(Icons.chat_bubble_rounded),
+              label: "تواصل"
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: "بحث"
+              icon: Icon(Icons.logout),
+              label: 'تسجيل خروج'
           ),
         ],
       ),

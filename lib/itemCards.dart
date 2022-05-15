@@ -11,6 +11,7 @@ class itemCards extends StatelessWidget {
   final String ing;
   final String steps;
   final String category;
+  final String country;
   final String docID;
 
   itemCards(
@@ -19,6 +20,7 @@ class itemCards extends StatelessWidget {
       @required this.duration,
       this.ing,
       this.steps,
+      this.country,
       this.category,
       this.docID);
 
@@ -29,7 +31,7 @@ class itemCards extends StatelessWidget {
       ctx,
       MaterialPageRoute(
           builder: (context) =>
-              Details(title, imageUrl, ing, steps, docID, category)),
+              Details(title, imageUrl, ing, steps, docID, category,country)),
     );
   }
 
@@ -69,15 +71,23 @@ class itemCards extends StatelessWidget {
   Future delete() async {
     CollectionReference collectionRef =
         FirebaseFirestore.instance.collection("Items");
-    return collectionRef.doc(category).collection(category).doc(docID).delete();
+    return collectionRef
+        .doc(country)
+        .collection(country)
+        .doc(category)
+        .collection(category)
+        .doc(docID)
+        .delete();
   }
 
   var _auth = FirebaseAuth.instance;
   var logedInUSer;
+
   getCuurrentUser() {
     User? user = _auth.currentUser?.email as User?;
     logedInUSer = user?.email;
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -149,20 +159,20 @@ class itemCards extends StatelessWidget {
                       ],
                     ),
                     Visibility(
-                        child:Row(
-                          children:[
+                        child: Row(
+                          children: [
                             IconButton(
-                              onPressed:()=> delete(),
+                              onPressed: () => delete(),
                               icon: Icon(Icons.delete),
                             ),
                           ],
                         ),
-                        visible:  _auth.currentUser?.email =='tatamagdy2@gmail.com'? true: false
-                    ),
+                        visible:
+                            _auth.currentUser?.email == 'tatamagdy2@gmail.com'
+                                ? true
+                                : false),
                   ],
-
                 ),
-
               ),
             ],
           ),

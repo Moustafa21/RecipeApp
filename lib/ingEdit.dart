@@ -9,10 +9,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ingEdit extends StatefulWidget {
   final String category;
+  final String country;
   final String docID;
   final String title;
 
-  const ingEdit(this.category, this.docID, this.title);
+  const ingEdit(this.category,  this.country,this.docID, this.title );
 
   @override
   _ingEditState createState() => _ingEditState();
@@ -23,6 +24,7 @@ class _ingEditState extends State<ingEdit> {
   late var Ingredients;
   bool showSpinner = false;
 
+
   @override
   void intistate() {
     super.initState();
@@ -31,49 +33,54 @@ class _ingEditState extends State<ingEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        centerTitle: false,
+        centerTitle: true,
         backgroundColor: Color(0xff174354),
-        titleSpacing: 30,
-        title: Text(
-          "Edit ${widget.title} ingredients",
-          style: TextStyle(fontSize: 30),
+        title: Text("${widget.category} تحديث المكونات لـ",style: TextStyle(fontSize: 20),
         ),
       ),
-      body: ModalProgressHUD(
-          inAsyncCall: showSpinner,
-          child: ListView(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.all(20),
-                child: TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Enter the Ingredients',
-                    labelStyle: TextStyle(fontSize: 20),
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: ModalProgressHUD(
+            inAsyncCall: showSpinner,
+            child: ListView(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(50),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: 'ادخل المكونات',
+                      labelStyle:TextStyle(fontSize: 20),
+                      border: OutlineInputBorder(),
+                    ),
+                    maxLines: 7,
+                    onChanged: (val){
+                      Ingredients =val;
+                    },
                   ),
-                  maxLines: 7,
-                  onChanged: (val) {
-                    Ingredients = val;
-                  },
                 ),
-              ),
-              Padding(padding: EdgeInsets.all(10)),
-              RaisedButton(
-                onPressed: () async {
-                  await _firestore
-                      .collection("Items")
-                      .doc(widget.category)
-                      .collection(widget.category)
-                      .doc(widget.docID)
-                      .update({
-                    'Ingredients': Ingredients,
-                  });
-                },
-                child: Text('Update ingredients'),
-                color: Colors.teal[500],
-              ),
-            ],
-          )),
+
+                Padding(padding: EdgeInsets.all(30)),
+                ButtonTheme(
+                  height: 50,
+                  minWidth: 80,
+                  child: RaisedButton(
+                    onPressed: () async {
+                      _firestore.collection("Items").doc(widget.country).collection(widget.country).doc(widget.category).collection(widget.category).doc(widget.docID).update({
+                        'Ingredients' : Ingredients,
+                      }
+                      ).then((value) => Navigator.of(context).pop()
+                      );
+                    },
+                    child: Text('حدث المكونات',style: TextStyle(color:Colors.white,fontSize: 20),),
+                    color: Colors.teal[500],
+                  ),
+                ),
+              ],
+            )
+        ),
+      ),
     );
   }
 }

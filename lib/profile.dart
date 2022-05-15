@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-
 import 'resetPassword.dart';
 
 class myProfile extends StatefulWidget {
@@ -29,87 +28,96 @@ class _myProfileState extends State<myProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(logedInUSer ?? "S")),
-      body: Builder(builder: (context) {
-        return ModalProgressHUD(
-          inAsyncCall: showSpinner,
-          child: ListView(
-            children: <Widget>[
-              Padding(padding: EdgeInsets.all(5)),
-              Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.transparent,
+      backgroundColor: Colors.grey[300],
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(logedInUSer ?? "حسابي",
+          style: TextStyle(fontSize: 20),),
+        backgroundColor: Color(0xff174354),),
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Builder(builder: (context) {
+          return ModalProgressHUD(
+            inAsyncCall: showSpinner,
+            child: ListView(
+              children: <Widget>[
+                Padding(padding: EdgeInsets.all(30)),
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.transparent,
+                  ),
+                  child: Icon(
+                    Icons.account_circle,
+                    color: Colors.black,
+                    size: 110,
+                  ),
+                  alignment: Alignment.center,
                 ),
-                child: Icon(
-                  Icons.account_circle,
-                  color: Colors.black,
-                  size: 110,
-                ),
-                alignment: Alignment.center,
-              ),
-              Center(
-                child: Text(_auth.currentUser!.email??"",
-                  style: TextStyle(fontSize: 20,
-                    color: Colors.deepPurple[800],
+                Center(
+                  child: Text(_auth.currentUser!.email??"",
+                    style: TextStyle(fontSize: 20,
+                      color: Colors.deepPurple[800],
+                    ),
                   ),
                 ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(padding: EdgeInsets.all(5)),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(padding: EdgeInsets.all(5)),
 
-                  Container(
-                    margin: EdgeInsets.all(20),
-                    child: TextField(
-                      controller: _controller,
-                      decoration: InputDecoration(
-                        labelText: 'Enter new email',
-                        labelStyle: TextStyle(fontSize: 20),
+                    Container(
+                      margin: EdgeInsets.all(20),
+                      child: TextField(
+                        controller: _controller,
+                        decoration: InputDecoration(
+                          labelText: 'ادخل بريد الكتروني جديد',
+                          labelStyle: TextStyle(fontSize: 20),
+                          border: OutlineInputBorder(),
+                        ),
+                        onChanged: (val) {
+                          newEmail = val;
+                        },
                       ),
-                      onChanged: (val) {
-                        newEmail = val;
+                    ),
+
+                    Padding(padding: EdgeInsets.all(15)),
+
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (context)=> ResetPassword()),
+                        );
                       },
+                      child: Text("نسيت كلمة المرور؟",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.blue,),
+                      ),
                     ),
-                  ),
-
-                  Padding(padding: EdgeInsets.all(15)),
-
-                  InkWell(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context)=> ResetPassword()),
-                      );
-                    },
-                    child: Text("Reset Password?",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.blue,),
+                    Padding(padding: EdgeInsets.all(50)),
+                    RaisedButton(
+                      onPressed: () async {
+                        _auth.currentUser!
+                            .updateEmail(newEmail)
+                            .then((value) => showSpinner = true)
+                            .then((value) => Scaffold.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text('تم تحديث البريد الالكتروني بنجاح'))))
+                            .then((value) => _controller.clear())
+                            .then((value) => showSpinner = false);
+                      },
+                      child: Text('حدث البريد الالكتروني',style:TextStyle(color:Colors.white,fontSize: 20)),
+                      color: Colors.teal[500],
                     ),
-                  ),
-                  Padding(padding: EdgeInsets.all(80)),
-                  RaisedButton(
-                    onPressed: () async {
-                      _auth.currentUser!
-                          .updateEmail(newEmail)
-                          .then((value) => showSpinner = true)
-                          .then((value) => Scaffold.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text('Email updated successfully'))))
-                          .then((value) => _controller.clear())
-                          .then((value) => showSpinner = false);
-                    },
-                    child: Text('update email'),
-                    color: Colors.teal[500],
-                  ),
-                ],
-              )
-            ],
-          ),
-        );
-      }),
+                  ],
+                )
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 }

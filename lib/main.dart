@@ -7,6 +7,7 @@ import 'package:untitled/home/categories.dart';
 import 'package:untitled/home/home.dart';
 import 'package:untitled/login.dart';
 import 'package:untitled/navigationBar.dart';
+import 'package:untitled/new.dart';
 import 'package:untitled/search1/search.dart';
 import 'package:untitled/search1/search1.dart';
 
