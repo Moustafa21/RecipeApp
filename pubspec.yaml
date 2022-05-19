@@ -49,6 +49,7 @@ dependencies:
   flutter_downloader: ^1.7.2
   rounded_button: ^1.0.3
   favorite_button: ^0.0.4
+  share_plus:
 
 
 dev_dependencies:
