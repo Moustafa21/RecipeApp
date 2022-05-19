@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'resetPassword.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class myProfile extends StatefulWidget {
   const myProfile({Key? key}) : super(key: key);
@@ -19,7 +19,6 @@ class _myProfileState extends State<myProfile> {
   var _controller = TextEditingController();
   final _firestore = FirebaseFirestore.instance;
 
-
   getCuurrentUser() {
     User? user = _auth.currentUser?.email as User?;
     logedInUSer = user?.email;
@@ -31,9 +30,12 @@ class _myProfileState extends State<myProfile> {
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
         centerTitle: true,
-        title: Text(logedInUSer ?? "حسابي",
-          style: TextStyle(fontSize: 20),),
-        backgroundColor: Color(0xff174354),),
+        title: Text(
+          logedInUSer ?? "حسابي",
+          style: TextStyle(fontSize: 20),
+        ),
+        backgroundColor: Color(0xff174354),
+      ),
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: Builder(builder: (context) {
@@ -55,9 +57,11 @@ class _myProfileState extends State<myProfile> {
                   alignment: Alignment.center,
                 ),
                 Center(
-                  child: Text(_auth.currentUser!.email??"",
-                    style: TextStyle(fontSize: 20,
-                      color: Colors.deepPurple[800],
+                  child: Text(
+                    _auth.currentUser!.email ?? "",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.indigo[800],
                     ),
                   ),
                 ),
@@ -65,7 +69,6 @@ class _myProfileState extends State<myProfile> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Padding(padding: EdgeInsets.all(5)),
-
                     Container(
                       margin: EdgeInsets.all(20),
                       child: TextField(
@@ -80,23 +83,7 @@ class _myProfileState extends State<myProfile> {
                         },
                       ),
                     ),
-
-                    Padding(padding: EdgeInsets.all(15)),
-
-                    InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(
-                            builder: (context)=> ResetPassword()),
-                        );
-                      },
-                      child: Text("نسيت كلمة المرور؟",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.blue,),
-                      ),
-                    ),
-                    Padding(padding: EdgeInsets.all(50)),
+                    Padding(padding: EdgeInsets.all(10)),
                     RaisedButton(
                       onPressed: () async {
                         _auth.currentUser!
@@ -104,12 +91,32 @@ class _myProfileState extends State<myProfile> {
                             .then((value) => showSpinner = true)
                             .then((value) => Scaffold.of(context).showSnackBar(
                             SnackBar(
-                                content: Text('تم تحديث البريد الالكتروني بنجاح'))))
+                                content: Text(
+                                    'تم تحديث البريد الالكتروني بنجاح'))))
                             .then((value) => _controller.clear())
                             .then((value) => showSpinner = false);
                       },
-                      child: Text('حدث البريد الالكتروني',style:TextStyle(color:Colors.white,fontSize: 20)),
-                      color: Colors.teal[500],
+                      child: Text('حدث البريد الالكتروني',
+                          style: TextStyle(color: Colors.white, fontSize: 20)),
+                      color: Colors.teal[700],
+                    ),
+                    Padding(padding: EdgeInsets.all(10)),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ResetPassword()),
+                        );
+                      },
+                      child: Text(
+                        "نسيت كلمة المرور؟",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.blue[700],
+                        ),
+                      ),
                     ),
                   ],
                 )

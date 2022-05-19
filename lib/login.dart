@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:connectivity/connectivity.dart';
-// ignore: import_of_legacy_library_into_null_safe
-//import 'package:modal_progress_hud/modal_progress_hud.dart';
-//import 'package:untitled/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:untitled/adminNavBar.dart';
-//import 'package:untitled/home.dart';
-import 'adminAdd.dart';
-import 'register.dart';
+import 'loginSplash.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'navigationBar.dart';
-
+import 'resetPassword.dart';
+import 'register.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -27,45 +21,40 @@ class _LoginState extends State<Login> {
   bool visiblityPassword = true;
   bool spinner = false;
   var email_vaildator = MultiValidator([
-    EmailValidator(errorText: 'Email not valid'),
-    RequiredValidator(errorText: 'Email is required'),
+    EmailValidator(errorText: 'البريد الالكتروني غير صحيح'),
+    RequiredValidator(errorText: 'البريد الالكتروني مطلوب'),
   ]);
   var password_validator = MultiValidator([
-    RequiredValidator(errorText: 'Password is required'),
-    MinLengthValidator(8, errorText: 'password must be at least 8 digits long'),
+    RequiredValidator(errorText: 'كلمة المرور مطلوبة'),
+    MinLengthValidator(8, errorText: 'يجب ان لا تقل كلمة المرور عن 8 احرف'),
     PatternValidator(r'(?=.*?[#?!@$%^&*-])',
-        errorText: 'passwords must have at least one special character'),
+        errorText: 'يجب ان تحتوي كلمة المرور على علامة مميزة واحدة على الاقل'),
   ]);
 
   @override
   Widget build(BuildContext context) {
-    //   bool visiblityPassword = true;
-
     return Scaffold(
-      backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        backgroundColor: Color(0xff174354),
-        title: Text(
-          "تسجيل الدخول",
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
+      backgroundColor: Colors.grey[200],
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: Builder(builder: (context) {
           return ModalProgressHUD(
             inAsyncCall: spinner,
             child: ListView(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.all(25),
               children: [
+                Container(
+                    margin: EdgeInsets.only(top: 50),
+                    child: Image(
+                        image: AssetImage('assets/MealBoard.png'),
+                        height: 150,
+                        width: 150)),
                 Form(
                     key: _formkey,
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 40,
+                          height: 30,
                         ),
                         TextFormField(
                           validator: email_vaildator,
@@ -96,10 +85,9 @@ class _LoginState extends State<Login> {
                                   visiblityPassword
                                       ? Icons.visibility
                                       : Icons.visibility_off,
-                                  color: Colors.indigo),
+                                  color: Colors.teal[500]),
                               onPressed: () {
                                 setState(() {
-                                  //visiblityPassword? Icons.visibility : Icons.visibility_off;
                                   visiblityPassword = !visiblityPassword;
                                 });
                               },
@@ -111,13 +99,13 @@ class _LoginState extends State<Login> {
                           height: 20,
                         ),
                         SizedBox(
-                          height: 40,
+                          height: 20,
                         ),
                       ],
                     )),
                 FlatButton(
-                    color: Colors.teal[500],
-                    padding: EdgeInsets.all(20),
+                    color: Colors.teal[600],
+                    padding: EdgeInsets.all(10),
                     onPressed: () async {
                       if (_formkey.currentState!.validate()) {
                         var connectivityResult =
@@ -138,14 +126,14 @@ class _LoginState extends State<Login> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => adminNavBar()));
+                                      builder: (context) => LoginSplash()));
                             } else {
                               await _auth.signInWithEmailAndPassword(
                                   email: email, password: password);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => bottomNavBar()));
+                                      builder: (context) => LoginSplash()));
                             }
                           } catch (e) {
                             setState(() {
@@ -165,39 +153,70 @@ class _LoginState extends State<Login> {
                       }
                     },
                     child: Text(
-                      'الدخول',
-                      style: TextStyle(fontSize: 20),
+                      'تسجيل الدخول',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                     )),
                 SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
                 InkWell(
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Register()),
+                        MaterialPageRoute(
+                            builder: (context) => ResetPassword()),
                       );
                     },
-                    child: Row(
-                      children: [
+                    child: Container(
+                      margin: EdgeInsets.only(right: 90),
+                      child: Row(children: [
                         Text(
-                          'لا تملك حساب؟',
+                          'هل نسيت كلمة المرور؟',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black38,
+                            fontSize: 18,
+                            color: Colors.blue[700],
                           ),
                         ),
-                        Text(
-                          'قم بانشاء حساب  ',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ],
+                      ]),
                     )),
+                SizedBox(
+                  height: 20,
+                ),
+                Divider(
+                    height: 2, indent: 10, endIndent: 10, color: Colors.black),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  margin: EdgeInsets.only(right: 70),
+                  child: Row(children: [
+                    Text(
+                      'لا تملك حساب؟',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black54,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Register()));
+                      },
+                      child: Text(
+                        'اشترك الان.  ',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.blue[700],
+                        ),
+                      ),
+                    )
+                  ]),
+                ),
               ],
             ),
           );

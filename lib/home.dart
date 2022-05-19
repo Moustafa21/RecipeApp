@@ -1,12 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:untitled/home/itemCard2.dart';
-import '../countryItems.dart';
-import '../itemCards.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'itemCard2.dart';
-
+import 'itemCards.dart';
+import 'countryItems.dart';
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -31,7 +27,7 @@ class _HomeState extends State<Home> {
         if (!snapshot.hasData) {
           return Center(child: CircularProgressIndicator());
         } else if (snapshot.data?.size == 0) {
-          return Center(child: Text("لا يوجد عناصر"));
+          return Center(child: Text("لا يوجد وصفات"));
         } else {
           return ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -53,7 +49,7 @@ class _HomeState extends State<Home> {
         if (!snapshot.hasData) {
           return Center(child: CircularProgressIndicator());
         } else if (snapshot.data?.size == 0) {
-          return Center(child: Text("لا يوجد عناصر"));
+          return Center(child: Text("لا يوجد مطابخ"));
         } else {
           return ListView.builder(
               itemCount: 2,
@@ -87,7 +83,12 @@ class _HomeState extends State<Home> {
               height: 50,
               width: 50,
             ),
-            Container(margin: EdgeInsets.only(left: 60),child: Text("MEALBOARD",style: TextStyle(fontWeight: FontWeight.w800),)),
+            Container(
+                margin: EdgeInsets.only(left: 60),
+                child: Text(
+                  "MEALBOARD",
+                  style: TextStyle(fontWeight: FontWeight.w800),
+                )),
           ]),
           backgroundColor: Color(0xff174354),
           automaticallyImplyLeading: false,

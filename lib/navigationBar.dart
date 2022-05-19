@@ -1,61 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/search1/search.dart';
 import 'account.dart';
-import 'chat.dart';
-import 'adminAdd.dart';
 import 'favorites.dart';
 import 'filtercountries.dart';
-import 'home/home.dart';
-import 'home/newHome.dart';
-import 'login.dart';
-import 'register.dart';
+import 'home.dart';
 
 class bottomNavBar extends StatefulWidget {
-  const bottomNavBar({ Key? key }) : super(key: key);
+  const bottomNavBar({Key? key}) : super(key: key);
 
   @override
   _bottomNavBarState createState() => _bottomNavBarState();
 }
 
 class _bottomNavBarState extends State<bottomNavBar> {
-
   late List pages;
-
 
   int selectPageIndex = 0;
 
-  void initState(){
+  void initState() {
     pages = [
       {
         'page': Home(),
-        'label': "الرئيسية",
       },
-      /*{
-      'page': Chat(),
-      'label': 'chats',
-    },*/
       {
         'page': FilterCountry(),
-        'label': "البلاد",
       },
       {
         'page': Favorites(),
-        'label': "المفضلة",
       },
       {
         'page': Account(),
-        'label': "الحساب",
       },
       {
         'page': Search(),
-        'label': "بحث",
       },
-
     ];
     super.initState();
   }
 
-  void selectPage(int value){
+  void selectPage(int value) {
     setState(() {
       selectPageIndex = value;
     });
@@ -64,44 +47,32 @@ class _bottomNavBarState extends State<bottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*   appBar: AppBar(
-        title: Text(pages[selectPageIndex]['label']),
-        backgroundColor: Color(0xff174354),
-        ),*/
-
       body: pages[selectPageIndex]['page'],
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: selectPage,
-        backgroundColor: Colors.white,
-        selectedItemColor: Colors.teal[500],
-        unselectedItemColor: Colors.black,
-        currentIndex: selectPageIndex,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: "الرئيسية"
-          ),
-          /*     BottomNavigationBarItem(
-             icon: Icon(Icons.home),
-             label: "Chats"
-             ),*/
-          BottomNavigationBarItem(
-            icon: Icon(Icons.filter_alt),
-            label: "الاقسام",
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: "المفضلة"
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              label: "حسابي"
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: "بحث"
-          ),
-        ],
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+            border: Border(top: BorderSide(color: Colors.black, width: 1.0))),
+        child: BottomNavigationBar(
+          onTap: selectPage,
+          backgroundColor: Colors.white,
+          selectedItemColor: Colors.teal[500],
+          selectedFontSize: 15,
+          unselectedItemColor: Colors.black,
+          currentIndex: selectPageIndex,
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home, size: 30), label: "الرئيسية"),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.filter_alt, size: 30),
+              label: "التصنيفات",
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.favorite, size: 30), label: "المفضلات"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.account_circle, size: 30), label: "حسابي"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.search, size: 30), label: "بحث"),
+          ],
+        ),
       ),
     );
   }

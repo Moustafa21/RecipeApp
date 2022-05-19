@@ -25,16 +25,12 @@ class _AddState extends State<Add> {
   var RecipeName;
   var Recipe;
   var category;
-  String categoryValue = 'Egyptian';
-  String countryValue = 'Egyptian';
+  String categoryValue = '';
+  String countryValue = '';
   var country;
   var RecipeTime;
   late User logeInUser;
-  late String recipeName;
   late String downloadUrl;
-  late String recipe;
-  late var photo;
-  late double long, lat;
   final picker = ImagePicker();
   var ctrl1 = TextEditingController();
   var ctrl2 = TextEditingController();
@@ -80,256 +76,236 @@ class _AddState extends State<Add> {
 
   @override
   Widget build(BuildContext context) {
-    return ModalProgressHUD(
-      inAsyncCall: showSpinner,
-      child: Scaffold(
-        backgroundColor: Colors.grey[300],
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          centerTitle: true,
-          backgroundColor: Color(0xff174354),
-          titleSpacing: 30,
-          title: Directionality(
-            textDirection: TextDirection.rtl,
-            child: Text(
-              "أضف وصفة جديدة",
-              style: TextStyle(fontSize: 20),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: ModalProgressHUD(
+        inAsyncCall: showSpinner,
+        child: Scaffold(
+          backgroundColor: Colors.grey[300],
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            backgroundColor: Color(0xff174354),
+            titleSpacing: 30,
+            title: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Text(
+                "أضف وصفة جديدة",
+                style: TextStyle(fontSize: 20),
+              ),
             ),
           ),
-        ),
-        body: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Form(
-            key: _formkey,
-            child: ListView(
-              children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(padding: EdgeInsets.all(5)),
-                    Card(
-                        child: (_image != null)
-                            ? Image.file(
-                          _image,
-                          width: 120,
-                          height: 120,
-                          fit: BoxFit.fill,
-                        )
-                            : Image(
-                          image: AssetImage('images/add.png'),
-                          width: 80,
-                          height: 80,
-                        )),
-                    InkWell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'أضف صورة',
-                            style: TextStyle(
-                              color: Colors.teal[600],
-                              decoration: TextDecoration.underline,
+          body: Directionality(
+            textDirection: TextDirection.rtl,
+            child: Form(
+              key: _formkey,
+              child: ListView(
+                children: <Widget>[
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(padding: EdgeInsets.all(5)),
+                      Card(
+                          color: Colors.grey[300],
+                          child: (_image != null)
+                              ? Image.file(
+                            _image,
+                            width: 120,
+                            height: 120,
+                            fit: BoxFit.fill,
+                          )
+                              : Image(
+                            image: AssetImage('assets/upload.png'),
+                            width: 100,
+                            height: 100,
+                          )),
+                      InkWell(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'أضف صورة',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.teal[600],
+                                decoration: TextDecoration.underline,
+                              ),
                             ),
-                          ),
-                          Icon(
-                            Icons.add_circle,
-                            color: Colors.teal[500],
-                          ),
-                        ],
-                      ),
-                      onTap: getImage,
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(20),
-                      child: TextFormField(
-                        controller: ctrl1,
-                        validator: RequiredValidator(
-                            errorText: 'خانة مطلوبة'),
-                        decoration: InputDecoration(
-                          labelText: 'اسم الوصفة',
-                          labelStyle: TextStyle(fontSize: 20),
-                          border: OutlineInputBorder(),
+                            Icon(
+                              Icons.add_circle,
+                              color: Colors.teal[500],
+                              size: 20,
+                            ),
+                          ],
                         ),
-                        maxLines: 1,
-                        onChanged: (val) {
-                          RecipeName = val;
-                        },
+                        onTap: getImage,
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(20),
-                      child: TextFormField(
-                        controller: ctrl2,
-                        validator: RequiredValidator(
-                            errorText: 'خانة مطلوبة'),
-                        decoration: InputDecoration(
-                          labelText: 'مدة التحضير',
-                          labelStyle: TextStyle(fontSize: 20),
-                          border: OutlineInputBorder(),
-                        ),
-                        maxLines: 1,
-                        keyboardType: TextInputType.number,
-                        onChanged: (val) {
-                          RecipeTime = val;
-                        },
-                      ),
-                      //
-                    ),
-                    Container(
+                      Container(
                         margin: EdgeInsets.all(20),
                         child: TextFormField(
-                          controller: ctrl3,
-                          validator: RequiredValidator(
-                              errorText: 'خانة مطلوبة'),
+                          controller: ctrl1,
+                          validator:
+                          RequiredValidator(errorText: 'خانة مطلوبة'),
                           decoration: InputDecoration(
-                            labelText: 'المكونات',
+                            labelText: 'اسم الوصفة',
                             labelStyle: TextStyle(fontSize: 20),
                             border: OutlineInputBorder(),
                           ),
-                          maxLines: 7,
+                          maxLines: 1,
                           onChanged: (val) {
-                            Ingredients = val;
+                            RecipeName = val;
                           },
-                        )),
-                    Container(
+                        ),
+                      ),
+                      Container(
                         margin: EdgeInsets.all(20),
                         child: TextFormField(
-                          controller: ctrl4,
-                          validator: RequiredValidator(
-                              errorText: 'خانة مطلوبة'),
+                          controller: ctrl2,
+                          validator:
+                          RequiredValidator(errorText: 'خانة مطلوبة'),
                           decoration: InputDecoration(
-                            labelText: 'خطوات التحضير',
+                            labelText: 'مدة التحضير',
                             labelStyle: TextStyle(fontSize: 20),
                             border: OutlineInputBorder(),
                           ),
-                          maxLines: 7,
+                          maxLines: 1,
+                          keyboardType: TextInputType.number,
                           onChanged: (val) {
-                            Recipe = val;
+                            RecipeTime = val;
                           },
-                        )),
-                    Container(
-                        margin: EdgeInsets.all(20),
-                        child: Padding(
-                          padding: EdgeInsets.all(15),
-                          child: DropdownButton<String>(
-                            menuMaxHeight: 300,
-                            isExpanded: true,
-                            value: country,
-                            hint: const Text('اختر البلد'),
-                            icon: Icon(Icons.keyboard_arrow_down),
-                            onChanged: (val) {
-                              setState(() {
-                                country = val;
-                              });
-                            },
-                            items: <String>[
-                              'مصري',
-                              'امريكي',
-                              'ايطالي',
-                              'يوناني',
-                              'تركي',
-                              'اسباني',
-                              'مكسيكي',
-                              'لبناني',
-                              'عراقي',
-                              'تايلاندي',
-                              'الماني',
-                              'مغربي',
-                              'باكستاني',
-                              'تونس',
-                              'سوري',
-                              'فرنسي',
-                              'كوري',
-                              'ياباني',
-                              'هندي',
-                              'ماليزي',
-                              'ليبي',
-                              'جزائري',
-                              'اردني',
-                              'صيني',
-                              'هولاندي',
-                              'سويسري',
-                              'دنماركي',]
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                child: Text(value),
-                                value: value,
-                              );
-                            }).toList(),
-                          ),
-                        )),
-                    Container(
-                        margin: EdgeInsets.all(20),
-                        child: Padding(
-                          padding: EdgeInsets.zero,
-                          child: DropdownButton<String>(
-                            menuMaxHeight: 200,
-                            isExpanded: true,
-                            value: category,
-                            hint: Text('اختر القسم'),
-                            icon: Icon(Icons.keyboard_arrow_down),
-                            onChanged: (val) {
-                              setState(() {
-                                category = val;
-                              });
-                            },
-                            items: <String>[
-                              'بحريات',
-                              'لحوم',
-                              'دجاج',
-                              'معجنات',
-                              'مقبلات',
-                              'خضروات',
-                              'حلويات'
-                            ]
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                child: Text(value),
-                                value: value,
-                              );
-                            }).toList(),
-                          ),
-                        )),
-                    Padding(padding: EdgeInsets.all(15)),
-                    ButtonTheme(
-                      height: 100,
-                      minWidth: 200,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          (_formkey.currentState!.validate());
-                          await uploadPic(context);
-                          _firestore
-                            ..collection("Items")
-                                .doc(country)
-                                .collection(country)
-                                .doc(category)
-                                .collection(category)
-                                .add({
-                              'url': downloadUrl,
-                              'Recipe': Recipe,
-                              'Ingredients': Ingredients,
-                              'RecipeName': RecipeName,
-                              'RecipeTime': RecipeTime,
-                            }).then((value) => ctrl1.clear()).then((value) => ctrl2.clear()).then((value) => ctrl3.clear()).then((value) => ctrl4.clear());
-
-
-                          _firestore
-                              .collection("Items")
-                              .doc(country)
-                              .set({'dummy': country});
-                          _firestore
-                              .collection("Items").doc(country).collection(country)
-                              .doc(category)
-                              .set({'dummy': category});
-                        },
-                        child: Text('اضف العنصر',style: TextStyle(fontSize:20)),
-                        style: ElevatedButton.styleFrom(primary: Colors.teal)
-                        ,
+                        ),
+                        //
                       ),
-                    ),
-                  ],
-                )
-              ],
+                      Container(
+                          margin: EdgeInsets.all(20),
+                          child: TextFormField(
+                            controller: ctrl3,
+                            validator:
+                            RequiredValidator(errorText: 'خانة مطلوبة'),
+                            decoration: InputDecoration(
+                              labelText: 'المكونات',
+                              labelStyle: TextStyle(fontSize: 20),
+                              border: OutlineInputBorder(),
+                            ),
+                            maxLines: 7,
+                            onChanged: (val) {
+                              Ingredients = val;
+                            },
+                          )),
+                      Container(
+                          margin: EdgeInsets.all(20),
+                          child: TextFormField(
+                            controller: ctrl4,
+                            validator:
+                            RequiredValidator(errorText: 'خانة مطلوبة'),
+                            decoration: InputDecoration(
+                              labelText: 'خطوات التحضير',
+                              labelStyle: TextStyle(fontSize: 20),
+                              border: OutlineInputBorder(),
+                            ),
+                            maxLines: 7,
+                            onChanged: (val) {
+                              Recipe = val;
+                            },
+                          )),
+                      Container(
+                          margin: EdgeInsets.all(20),
+                          child: Padding(
+                            padding: EdgeInsets.zero,
+                            child: DropdownButton<String>(
+                              menuMaxHeight: 300,
+                              isExpanded: true,
+                              value: country,
+                              hint: const Text('اختر البلد'),
+                              icon: Icon(Icons.keyboard_arrow_down),
+                              onChanged: (val) {
+                                setState(() {
+                                  country = val;
+                                });
+                              },
+                              items: <String>[
+                                'مصر',
+                                'المغرب',
+                                'سوريا'
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  child: Text(value),
+                                  value: value,
+                                );
+                              }).toList(),
+                            ),
+                          )),
+                      Container(
+                          margin: EdgeInsets.all(20),
+                          child: Padding(
+                            padding: EdgeInsets.zero,
+                            child: DropdownButton<String>(
+                              menuMaxHeight: 200,
+                              isExpanded: true,
+                              value: category,
+                              hint: Text('اختر القسم'),
+                              icon: Icon(Icons.keyboard_arrow_down),
+                              onChanged: (val) {
+                                setState(() {
+                                  category = val;
+                                });
+                              },
+                              items: <String>[
+                                'دجاج',
+                                'المقبلات',
+                                'مأكولات بحرية'
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  child: Text(value),
+                                  value: value,
+                                );
+                              }).toList(),
+                            ),
+                          )),
+                      Padding(padding: EdgeInsets.all(15)),
+                      ButtonTheme(
+                        height: 100,
+                        minWidth: 200,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            (_formkey.currentState!.validate());
+                            await uploadPic(context);
+                            _firestore
+                              ..collection("Items")
+                                  .doc(country)
+                                  .collection(country)
+                                  .doc(category)
+                                  .collection(category)
+                                  .add({
+                                'url': downloadUrl,
+                                'Recipe': Recipe,
+                                'Ingredients': Ingredients,
+                                'RecipeName': RecipeName,
+                                'RecipeTime': RecipeTime,
+                              })
+                                  .then((value) => ctrl1.clear())
+                                  .then((value) => ctrl2.clear())
+                                  .then((value) => ctrl3.clear())
+                                  .then((value) => ctrl4.clear())
+                                  .then((value) => Scaffold.of(context)
+                                  .showSnackBar(SnackBar(
+                                  content: Text(
+                                    "تم اضافة ${RecipeName}",
+                                    style: TextStyle(fontSize: 10),
+                                  ))));
+                          },
+                          child: Text('اضف الوصفة',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
+                          style: ElevatedButton.styleFrom(primary: Colors.teal),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

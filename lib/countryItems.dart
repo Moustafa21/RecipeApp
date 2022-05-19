@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'Recipes.dart';
+
 import 'filterCategory.dart';
 
 class country_items extends StatelessWidget {
   final String title;
-  final String imgurl;
+  final String img;
 
-/*   final String id;
-
-  final Color color; */
-  //recieve title parameter
-  country_items(this.title,this.imgurl);
+  country_items(this.title, this.img);
 
   void selectcountry(BuildContext ctx) {
     Navigator.push(
@@ -33,11 +29,7 @@ class country_items extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.network(imgurl,height: 50,width: 50,),
-              // Image(
-              //   image: AssetImage(
-              //       'images/kisspng-flag-of-the-united-states-national-flag-gadsden-fl-5aef0a166339d0.1825278315256151264064 (1)'),
-              // ),
+              Image.network(img, height: 40, width: 60, fit: BoxFit.cover),
               Text(
                 title,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -50,9 +42,7 @@ class country_items extends StatelessWidget {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                  color: Colors.grey, //New
-                  blurRadius: 25.0,
-                  offset: Offset(0, -10))
+                  color: Colors.grey, blurRadius: 25.0, offset: Offset(0, -10))
             ],
             borderRadius: BorderRadius.circular(15),
           ),

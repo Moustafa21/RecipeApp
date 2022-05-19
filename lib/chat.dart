@@ -19,7 +19,7 @@ class _ChatState extends State<Chat> {
   String? newMsg;
   var _conttroller = TextEditingController();
   late bool isMe;
-  ScrollController scrollController =new ScrollController();
+  ScrollController scrollController = new ScrollController();
   var _auth = FirebaseAuth.instance;
   var logedInUSer;
 
@@ -38,7 +38,10 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
-      appBar: AppBar(leading:BackButton(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("المحادثة"),
+        leading: BackButton(),
         backgroundColor: Color(0xff174354),
       ),
       body: Directionality(
@@ -71,21 +74,28 @@ class _ChatState extends State<Chat> {
                       Msg: msg,
                       isMe: isMe,
                     );
-                    chatList.addAll([itemList,SizedBox(height: 10,)]);
+                    chatList.addAll([
+                      itemList,
+                      SizedBox(
+                        height: 10,
+                      )
+                    ]);
                   }
 
                   return Expanded(
                     child: ListView.builder(
-
                       padding: EdgeInsets.all(15),
                       itemCount: chatList.length,
-                      itemBuilder: (context,index){
+                      itemBuilder: (context, index) {
                         WidgetsBinding.instance?.addPostFrameCallback((_) {
-                          if(scrollController.hasClients){
-                            scrollController.jumpTo(scrollController.position.maxScrollExtent);
+                          if (scrollController.hasClients) {
+                            scrollController.jumpTo(
+                                scrollController.position.maxScrollExtent);
                           }
                         });
-                        return Column(children: [chatList[index]],);
+                        return Column(
+                          children: [chatList[index]],
+                        );
                       },
                     ),
                   );
@@ -103,7 +113,7 @@ class _ChatState extends State<Chat> {
                       controller: _conttroller,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
-                        hintText: 'ارسل سالة',
+                        hintText: 'ارسل رسالة',
                       ),
                     ),
                   ),
