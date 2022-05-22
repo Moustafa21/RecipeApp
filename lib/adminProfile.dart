@@ -19,7 +19,7 @@ class _adminAccState extends State<adminAcc> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.grey[200],
         appBar: AppBar(
           centerTitle: true,
           automaticallyImplyLeading: false,
@@ -45,7 +45,7 @@ class _adminAccState extends State<adminAcc> {
                 },
               ),
               ProfileMenu(
-                text: 'تسجيل خروج',
+                text: 'تسجيل الخروج',
                 icon: Icons.logout,
                 onpressed: () {
                   _auth.signOut();
@@ -83,7 +83,7 @@ class ProfileMenu extends StatelessWidget {
         padding: EdgeInsets.all(20),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         onPressed: onpressed,
-        color: Color(0xfff5f6f9),
+        color: Colors.white,
         child: Row(
           children: [
             Icon(icon),

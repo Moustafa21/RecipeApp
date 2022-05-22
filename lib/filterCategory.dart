@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'categoryItems.dart';
+import '../categoryItems.dart';
 
 class Filter extends StatelessWidget {
   final String country;
@@ -10,7 +10,7 @@ class Filter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
           centerTitle: true,
           backgroundColor: Color(0xff174354),
@@ -28,8 +28,7 @@ class Filter extends StatelessWidget {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.data?.size == 0) {
-            return Center(
-                child: Text(".المطبخ فارغ، راسلنا لاضافة المزيد"));
+            return Center(child: Text(".المطبخ فارغ، راسلنا لاضافة المزيد"));
           } else {
             return GridView.builder(
               padding: EdgeInsets.all(25),

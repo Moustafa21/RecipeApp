@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'itemCards.dart';
+import '../itemCards.dart';
+
 class Favorites extends StatelessWidget {
   final _firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -11,7 +12,7 @@ class Favorites extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-          backgroundColor: Colors.grey[300],
+          backgroundColor: Colors.grey[200],
           appBar: AppBar(
             centerTitle: true,
             title: Text(

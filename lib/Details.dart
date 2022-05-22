@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:share_plus/share_plus.dart';
+import 'durEdit.dart';
 import 'imgEdit.dart';
 import 'ingEdit.dart';
-import 'itemCards.dart';
 import 'stepsEdit.dart';
+import 'itemCards.dart';
 
 class Details extends StatefulWidget {
   final String ing;
@@ -157,7 +158,7 @@ class _Details extends State<Details> {
 
     sharing() {
       try {
-        Share.share("مشاركة وصفة ${widget.name} من تطبيق كذا"
+        Share.share("مشاركة وصفة ${widget.name} من تطبيق ميلبورد"
             "\n\n\n"
             "مدة التحضير"
             "\t"
@@ -205,7 +206,7 @@ class _Details extends State<Details> {
                         Navigator.of(context).pop();
                       },
                       child: const Text(
-                        'نعم',
+                        'مسح',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       )),
@@ -213,7 +214,7 @@ class _Details extends State<Details> {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: const Text('لا',
+                      child: const Text('الغاء',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold)))
                 ],
@@ -223,7 +224,7 @@ class _Details extends State<Details> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Color(0xff174354),
@@ -245,28 +246,59 @@ class _Details extends State<Details> {
                   fit: BoxFit.cover,
                 ),
               ),
-              IconButton(
-                  padding: EdgeInsets.symmetric(horizontal: 340),
-                  iconSize: 45,
-                  onPressed: () => _auth.currentUser?.email == 'admin@gmail.com'
-                      ? Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => imgEdit(
-                            widget.category,
-                            widget.country,
-                            widget.docID,
-                            widget.name,
-                            widget.ing,
-                            widget.steps,
-                            widget.url,
-                            widget.duration,
-                          )))
-                      .then((value) => Navigator.of(context).pop())
-                      : sharing(),
-                  icon: _auth.currentUser?.email == 'admin@gmail.com'
-                      ? Icon(Icons.photo_camera_back_outlined)
-                      : Icon(Icons.share)),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Icon(
+                  Icons.timer,
+                  size: 30,
+                ),
+                Text(
+                  '${widget.duration} ق',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                ),
+                Visibility(
+                  child: IconButton(
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => durEdit(
+                                widget.category,
+                                widget.country,
+                                widget.docID,
+                                widget.name,
+                                widget.ing,
+                                widget.steps,
+                                widget.url,
+                                widget.duration,
+                              ))),
+                      icon: Icon(Icons.edit)),
+                  visible: _auth.currentUser?.email == 'admin@gmail.com'
+                      ? true
+                      : false,
+                ),
+                IconButton(
+                    padding: EdgeInsets.only(right: 150),
+                    iconSize: 35,
+                    onPressed: () =>
+                    _auth.currentUser?.email == 'admin@gmail.com'
+                        ? Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => imgEdit(
+                              widget.category,
+                              widget.country,
+                              widget.docID,
+                              widget.name,
+                              widget.ing,
+                              widget.steps,
+                              widget.url,
+                              widget.duration,
+                            )))
+                        .then((value) => Navigator.of(context).pop())
+                        : sharing(),
+                    icon: _auth.currentUser?.email == 'admin@gmail.com'
+                        ? Icon(Icons.photo_camera_back_outlined)
+                        : Icon(Icons.share)),
+              ]),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

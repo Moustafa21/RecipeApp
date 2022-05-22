@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:share_plus/share_plus.dart';
-import 'Details.dart';
+import '../Details.dart';
 
 class itemCards extends StatefulWidget {
   final String imageUrl;
@@ -73,7 +73,7 @@ class _itemCardsState extends State<itemCards> {
 
   sharing() {
     try {
-      Share.share("مشاركة وصفة ${widget.title} من تطبيق كذا"
+      Share.share("مشاركة وصفة ${widget.title} من تطبيق ميلبورد"
           "\n\n\n"
           "مدة التحضير"
           "\t"
@@ -151,8 +151,12 @@ class _itemCardsState extends State<itemCards> {
           return Directionality(
             textDirection: TextDirection.rtl,
             child: AlertDialog(
-              title: const Text('برجاء التأكيد'),
-              content: Text("هل انت متأكد من مسح ${widget.title}؟"),
+              title: const Text('برجاء التأكيد',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+              content: Text("هل انت متأكد من مسح ${widget.title}؟",
+                  style: TextStyle(
+                    fontSize: 20,
+                  )),
               actions: [
                 TextButton(
                     onPressed: () {
@@ -160,12 +164,16 @@ class _itemCardsState extends State<itemCards> {
                       setState(() {});
                       Navigator.of(context).pop();
                     },
-                    child: const Text('نعم')),
+                    child: const Text('مسح',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold))),
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: const Text('لا'))
+                    child: const Text('الغاء',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)))
               ],
             ),
           );

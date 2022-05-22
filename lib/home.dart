@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'countryItems.dart';
+import 'Details.dart';
+import '../countryItems.dart';
 import 'itemCard2.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -10,8 +12,43 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<String> cnts = ["مصر", "المغرب"];
-  List<String> cats = ["دجاج", "مأكولات بحرية"];
+  List<String> cnts = [
+    'مصر',
+    'امريكا',
+    'ايطاليا',
+    'يونان',
+    'تركيا',
+    'اسبانيا',
+    'مكسيك',
+    'لبنان',
+    'العراق',
+    'تايلاند',
+    'المانيا',
+    'المغرب',
+    'باكستان',
+    'تونس',
+    'سوريا',
+    'فرنسا',
+    'كوريا',
+    'اليابان',
+    'الهند',
+    'ماليزيا',
+    'ليبيا',
+    'الجزائر',
+    'الاردن',
+    'الصين',
+    'هولاندا',
+    'سويسرا',
+    'دنمارك',
+  ];
+  List<String> cats = [
+    'دجاج',
+    'لحوم',
+    'مأكولات بحرية',
+    'مقبلات',
+    'معجنات',
+    'حلويات'
+  ];
 
   items(int i) {
     return StreamBuilder(
@@ -30,11 +67,11 @@ class _HomeState extends State<Home> {
         } else {
           return ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 2,
+              itemCount: 5,
               itemBuilder: (context, i) {
                 QueryDocumentSnapshot x = snapshot.data!.docs[i];
                 return itemCards2(x['url'], x['RecipeName'], x['RecipeTime'],
-                    x['Ingredients'], x['Recipe'], "", "", x.id);
+                    x['Ingredients'], x['Recipe'], cnts[i], cats[i], x.id);
               });
         }
       },
@@ -73,7 +110,7 @@ class _HomeState extends State<Home> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.grey[200],
         appBar: AppBar(
           title: Row(children: [
             Image(
@@ -98,7 +135,7 @@ class _HomeState extends State<Home> {
               children: <Widget>[
                 Expanded(
                   child: SizedBox(
-                    height: 250.0,
+                    height: 200.0,
                     child: countries(),
                   ),
                 ),

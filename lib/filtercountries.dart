@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '/countryItems.dart';
+import '../countryItems.dart';
 
 class FilterCountry extends StatelessWidget {
   FilterCountry({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class FilterCountry extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.grey[200],
         appBar: AppBar(
           title: const Text(
             "المطابخ",

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'about.dart';
 import 'chat.dart';
 import 'login.dart';
 import 'profile.dart';
+
 class Account extends StatefulWidget {
   const Account({Key? key}) : super(key: key);
 
@@ -19,7 +21,7 @@ class _AccountState extends State<Account> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.grey[200],
         appBar: AppBar(
           centerTitle: true,
           automaticallyImplyLeading: false,
@@ -27,7 +29,7 @@ class _AccountState extends State<Account> {
           title: Directionality(
               textDirection: TextDirection.rtl,
               child: Text(
-                'الاعدادات',
+                'الحساب',
                 style: TextStyle(fontSize: 20),
               )),
         ),
@@ -37,7 +39,7 @@ class _AccountState extends State<Account> {
             children: [
               SizedBox(height: 20),
               ProfileMenu(
-                text: 'حسابي',
+                text: 'اعدادات الحساب',
                 icon: Icons.account_circle,
                 onpressed: () {
                   Navigator.push(context,
@@ -53,12 +55,15 @@ class _AccountState extends State<Account> {
                 },
               ),
               ProfileMenu(
-                text: 'عنا',
+                text: 'عن المطورين',
                 icon: Icons.info,
-                onpressed: () {},
+                onpressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => About()));
+                },
               ),
               ProfileMenu(
-                text: 'تسجيل خروج',
+                text: 'تسجيل الخروج',
                 icon: Icons.logout,
                 onpressed: () {
                   _auth.signOut();
@@ -96,7 +101,7 @@ class ProfileMenu extends StatelessWidget {
         padding: EdgeInsets.all(20),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         onPressed: onpressed,
-        color: Color(0xfff5f6f9),
+        color: Colors.white,
         child: Row(
           children: [
             Icon(icon),

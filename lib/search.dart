@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import '../itemCards.dart';
 import 'dataControl.dart';
-import 'package:untitled/itemCards.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -42,7 +42,7 @@ class _SearchState extends State<Search> {
       child: WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
-          backgroundColor: Colors.grey[300],
+          backgroundColor: Colors.grey[200],
           floatingActionButton: (FloatingActionButton(
             child: Icon(Icons.clear),
             onPressed: () {

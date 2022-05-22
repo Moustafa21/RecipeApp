@@ -3,7 +3,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'Details.dart';
 
-class ingEdit extends StatefulWidget {
+class durEdit extends StatefulWidget {
   final String category;
   final String country;
   final String docID;
@@ -13,16 +13,16 @@ class ingEdit extends StatefulWidget {
   final String url;
   final String duration;
 
-  const ingEdit(this.category, this.country, this.docID, this.title, this.ing,
+  const durEdit(this.category, this.country, this.docID, this.title, this.ing,
       this.steps, this.url, this.duration);
 
   @override
-  _ingEditState createState() => _ingEditState();
+  _durEditState createState() => _durEditState();
 }
 
-class _ingEditState extends State<ingEdit> {
+class _durEditState extends State<durEdit> {
   final _firestore = FirebaseFirestore.instance;
-  late var Ingredients;
+  late var dur;
   bool showSpinner = false;
 
   @override
@@ -38,7 +38,7 @@ class _ingEditState extends State<ingEdit> {
         centerTitle: true,
         backgroundColor: Color(0xff174354),
         title: Text(
-          " تحديث مكونات ${widget.title}",
+          " تحديث مدة تحضير ${widget.title}",
           style: TextStyle(fontSize: 20),
         ),
       ),
@@ -51,14 +51,15 @@ class _ingEditState extends State<ingEdit> {
                 Container(
                   margin: EdgeInsets.all(50),
                   child: TextField(
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      labelText: 'ادخل المكونات',
+                      labelText: 'ادخل مدة التحضير',
                       labelStyle: TextStyle(fontSize: 20),
                       border: OutlineInputBorder(),
                     ),
                     maxLines: 7,
                     onChanged: (val) {
-                      Ingredients = val;
+                      dur = val;
                     },
                   ),
                 ),
@@ -76,22 +77,22 @@ class _ingEditState extends State<ingEdit> {
                           .collection(widget.category)
                           .doc(widget.docID)
                           .update({
-                        'Ingredients': Ingredients,
+                        'RecipeTime': dur,
                       }).then((value) => Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => Details(
                                   widget.title,
                                   widget.url,
-                                  widget.duration,
-                                  Ingredients,
+                                  dur,
+                                  widget.ing,
                                   widget.steps,
                                   widget.category,
                                   widget.country,
                                   widget.docID))));
                     },
                     child: Text(
-                      'حدث المكونات',
+                      'حدث المدة',
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     color: Colors.teal[500],

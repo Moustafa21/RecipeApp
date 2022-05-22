@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/search.dart';
 import 'account.dart';
 import 'favorites.dart';
 import 'filtercountries.dart';
 import 'home.dart';
+import 'search.dart';
 
 class bottomNavBar extends StatefulWidget {
   const bottomNavBar({Key? key}) : super(key: key);
@@ -53,9 +53,9 @@ class _bottomNavBarState extends State<bottomNavBar> {
             border: Border(top: BorderSide(color: Colors.black, width: 1.0))),
         child: BottomNavigationBar(
           onTap: selectPage,
-          backgroundColor: Colors.white,
           selectedItemColor: Colors.teal[500],
           selectedFontSize: 15,
+          showUnselectedLabels: false,
           unselectedItemColor: Colors.black,
           currentIndex: selectPageIndex,
           items: const [
@@ -66,7 +66,7 @@ class _bottomNavBarState extends State<bottomNavBar> {
               label: "التصنيفات",
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.favorite, size: 25), label: "المفضلات"),
+                icon: Icon(Icons.favorite, size: 25), label: "المفضلة"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.account_circle, size: 25), label: "حسابي"),
             BottomNavigationBarItem(

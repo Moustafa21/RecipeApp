@@ -10,13 +10,6 @@ class DataController extends GetxController {
   }
 
   Future queryData(String qurryString) async {
-    final String p = "بيتزا";
-    final String m = "مشويات";
-    final String mb = "مأكولات بحرية";
-    final String ms = "";
-    List<String> l = ["بيتزا", "مشويات", "مأكولات بحرية", "مشروبات ساخنة"];
-    l.shuffle();
-    var ls = l.first;
     return FirebaseFirestore.instance
         .collection('Items')
         .doc("مصر")

@@ -18,21 +18,10 @@ class _adminNavBarState extends State<adminNavBar> {
   final _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
   late List pages;
-  LogOut() {
-    _auth.signOut();
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Login()),
-    );
-  }
-
   int selectPageIndex = 0;
 
   void initState() {
     pages = [
-      {
-        'page': Home(),
-      },
       {
         'page': FilterCountry(),
       },
@@ -63,12 +52,11 @@ class _adminNavBarState extends State<adminNavBar> {
           onTap: selectPage,
           backgroundColor: Colors.white,
           selectedItemColor: Colors.teal[500],
+          showUnselectedLabels: false,
           selectedFontSize: 15,
           unselectedItemColor: Colors.black,
           currentIndex: selectPageIndex,
           items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home, size: 25), label: "الرئيسية"),
             BottomNavigationBarItem(
               icon: Icon(Icons.filter_alt, size: 25),
               label: "التصنيفات",

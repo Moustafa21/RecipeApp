@@ -15,7 +15,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Color(0xff174354),
@@ -63,10 +63,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       color: Colors.teal[600],
                       padding: EdgeInsets.symmetric(horizontal: 90),
                       onPressed: () {
-                        _auth.sendPasswordResetEmail(email: email).then((value) => Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                                content: Text(
-                                    'تم تحديث البريد الالكتروني بنجاح'))));
+                        _auth.sendPasswordResetEmail(email: email);
                         Navigator.of(context).pop();
                       },
                       child: Text('ارسل الطلب',

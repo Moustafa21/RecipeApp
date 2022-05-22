@@ -16,6 +16,11 @@ class Add extends StatefulWidget {
 }
 
 class _AddState extends State<Add> {
+  var durationValidator = MultiValidator([
+    RequiredValidator(errorText: 'خانة مطلوبة'),
+    PatternValidator(r'(^(?:[0-9]))', errorText: 'ادخل رقم')
+  ]);
+
   final _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
   var _formkey = GlobalKey<FormState>();
@@ -81,7 +86,7 @@ class _AddState extends State<Add> {
       child: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: Scaffold(
-          backgroundColor: Colors.grey[300],
+          backgroundColor: Colors.grey[200],
           appBar: AppBar(
             automaticallyImplyLeading: false,
             centerTitle: true,
@@ -106,7 +111,7 @@ class _AddState extends State<Add> {
                     children: <Widget>[
                       Padding(padding: EdgeInsets.all(5)),
                       Card(
-                          color: Colors.grey[300],
+                          color: Colors.grey[200],
                           child: (_image != null)
                               ? Image.file(
                             _image,
@@ -161,8 +166,7 @@ class _AddState extends State<Add> {
                         margin: EdgeInsets.all(20),
                         child: TextFormField(
                           controller: ctrl2,
-                          validator:
-                          RequiredValidator(errorText: 'خانة مطلوبة'),
+                          validator: durationValidator,
                           decoration: InputDecoration(
                             labelText: 'مدة التحضير',
                             labelStyle: TextStyle(fontSize: 20),
@@ -240,7 +244,7 @@ class _AddState extends State<Add> {
                                 'تونس',
                                 'سوريا',
                                 'فرنسا',
-                                'كوريا الجنوبية',
+                                'كوريا',
                                 'اليابان',
                                 'الهند',
                                 'ماليزيا',
@@ -276,11 +280,11 @@ class _AddState extends State<Add> {
                               },
                               items: <String>[
                                 'دجاج',
-                                'المقبلات',
-                                'مأكولات بحرية',
                                 'لحوم',
-                                'حلويات',
+                                'مأكولات بحرية',
+                                'مقبلات',
                                 'معجنات',
+                                'حلويات'
                               ].map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   child: Text(value),

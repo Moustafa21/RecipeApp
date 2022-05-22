@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'resetPassword.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'resetPassword.dart';
 
 class myProfile extends StatefulWidget {
   const myProfile({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class _myProfileState extends State<myProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -57,7 +57,7 @@ class _myProfileState extends State<myProfile> {
                   alignment: Alignment.center,
                 ),
                 Center(
-                  child: Text(
+                  child: SelectableText(
                     _auth.currentUser!.email ?? "",
                     style: TextStyle(
                       fontSize: 20,

@@ -32,7 +32,6 @@ class _SplashState extends State<Splash> {
               alignment: Alignment.center,
               child: Image(
                 image: AssetImage('assets/MealBoard.png'),
-                //fit: BoxFit.cover,
                 height: 445,
                 width: 445,
               ),
@@ -42,7 +41,10 @@ class _SplashState extends State<Splash> {
             alignment: Alignment.bottomCenter,
             child: Text(
               "MEALBOARD",
-              style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900,),
+              style: TextStyle(
+                  fontSize: 35,
+                  fontWeight: FontWeight.w800,
+                  fontStyle: FontStyle.italic),
             ),
           ),
         ]),

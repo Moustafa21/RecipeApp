@@ -50,9 +50,11 @@ dependencies:
   flutter_downloader: ^1.7.2
   rounded_button: ^1.0.3
   favorite_button: ^0.0.4
+  simple_icons:
 
 
 dev_dependencies:
+  flutter_launcher_icons:
   flutter_test:
     sdk: flutter
 

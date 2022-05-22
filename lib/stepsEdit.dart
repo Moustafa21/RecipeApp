@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:untitled/Details.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'Details.dart';
+
 class stepsEdit extends StatefulWidget {
   final String category;
   final String country;
@@ -35,7 +36,7 @@ class _stepsEditState extends State<stepsEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Color(0xff174354),
