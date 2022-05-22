@@ -4,8 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:share_plus/share_plus.dart';
 import 'imgEdit.dart';
 import 'ingEdit.dart';
-import 'stepsEdit.dart';
 import 'itemCards.dart';
+import 'stepsEdit.dart';
+
 class Details extends StatefulWidget {
   final String ing;
   final String steps;
@@ -245,7 +246,7 @@ class _Details extends State<Details> {
                 ),
               ),
               IconButton(
-                  padding: EdgeInsets.symmetric(horizontal: 380),
+                  padding: EdgeInsets.symmetric(horizontal: 340),
                   iconSize: 45,
                   onPressed: () => _auth.currentUser?.email == 'admin@gmail.com'
                       ? Navigator.push(

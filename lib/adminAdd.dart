@@ -225,8 +225,32 @@ class _AddState extends State<Add> {
                               },
                               items: <String>[
                                 'مصر',
+                                'امريكا',
+                                'ايطاليا',
+                                'يونان',
+                                'تركيا',
+                                'اسبانيا',
+                                'مكسيك',
+                                'لبنان',
+                                'العراق',
+                                'تايلاند',
+                                'المانيا',
                                 'المغرب',
-                                'سوريا'
+                                'باكستان',
+                                'تونس',
+                                'سوريا',
+                                'فرنسا',
+                                'كوريا الجنوبية',
+                                'اليابان',
+                                'الهند',
+                                'ماليزيا',
+                                'ليبيا',
+                                'الجزائر',
+                                'الاردن',
+                                'الصين',
+                                'هولاندا',
+                                'سويسرا',
+                                'دنمارك',
                               ].map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   child: Text(value),
@@ -253,7 +277,10 @@ class _AddState extends State<Add> {
                               items: <String>[
                                 'دجاج',
                                 'المقبلات',
-                                'مأكولات بحرية'
+                                'مأكولات بحرية',
+                                'لحوم',
+                                'حلويات',
+                                'معجنات',
                               ].map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   child: Text(value),

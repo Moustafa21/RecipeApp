@@ -68,19 +68,19 @@ class _adminNavBarState extends State<adminNavBar> {
           currentIndex: selectPageIndex,
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(Icons.home, size: 30), label: "الرئيسية"),
+                icon: Icon(Icons.home, size: 25), label: "الرئيسية"),
             BottomNavigationBarItem(
-              icon: Icon(Icons.filter_alt, size: 30),
+              icon: Icon(Icons.filter_alt, size: 25),
               label: "التصنيفات",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.add, size: 30),
+              icon: Icon(Icons.add, size: 25),
               label: "اضافة",
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.account_circle,
-                size: 30,
+                size: 25,
               ),
               label: "الحساب",
             ),

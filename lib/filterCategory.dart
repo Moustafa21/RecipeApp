@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'categoryItems.dart';
+
 class Filter extends StatelessWidget {
   final String country;
   final _firestore = FirebaseFirestore.instance;
@@ -28,7 +29,7 @@ class Filter extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.data?.size == 0) {
             return Center(
-                child: Text("!لا توجد وصفات، راسلنا لاضافة مقترحاتك"));
+                child: Text(".المطبخ فارغ، راسلنا لاضافة المزيد"));
           } else {
             return GridView.builder(
               padding: EdgeInsets.all(25),

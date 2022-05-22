@@ -46,10 +46,10 @@ dependencies:
   flutter_svg: ^1.0.3
   path: ^1.8.0
   location: ^4.3.0
+  share_plus:
   flutter_downloader: ^1.7.2
   rounded_button: ^1.0.3
   favorite_button: ^0.0.4
-  share_plus:
 
 
 dev_dependencies:
@@ -75,6 +75,9 @@ flutter:
     - images/download (1).jpg
     - images/download (2).jpg
     - images/m.png
+    - assets/MealBoard.png
+    - assets/upload.png
+    - assets/profile.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

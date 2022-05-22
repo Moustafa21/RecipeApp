@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:untitled/Details.dart';
+import 'Details.dart';
+
 class itemCards extends StatefulWidget {
   final String imageUrl;
   final String title;
@@ -263,7 +264,7 @@ class _itemCardsState extends State<itemCards> {
                       ),
                       Visibility(
                           child: Container(
-                            margin: EdgeInsets.only(right: 150),
+                            margin: EdgeInsets.only(right: 120),
                             child: Row(
                               children: [
                                 IconButton(
@@ -286,7 +287,7 @@ class _itemCardsState extends State<itemCards> {
                         children: [
                           _auth.currentUser?.email == 'admin@gmail.com'
                               ? Container(
-                            margin: EdgeInsets.only(right: 200),
+                            margin: EdgeInsets.only(right: 180),
                             child: IconButton(
                               onPressed: () => _delete(context),
                               icon: Icon(Icons.delete),

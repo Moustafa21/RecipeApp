@@ -31,7 +31,7 @@ class Favorites extends StatelessWidget {
               if (!snapshot.hasData) {
                 return Center(child: CircularProgressIndicator());
               } else if (snapshot.data?.size == 0) {
-                return Center(child: Text("!لا يوجد عناصر، اضف الان"));
+                return Center(child: Text(".تصفح لاضافة وصفاتك المفضلة"));
               } else {
                 return ListView.builder(
                     itemCount: snapshot.data!.docs.length,

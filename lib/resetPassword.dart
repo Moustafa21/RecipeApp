@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
 
@@ -9,7 +10,7 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
-  final _auth =FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instance;
   late String email;
   @override
   Widget build(BuildContext context) {
@@ -26,15 +27,13 @@ class _ResetPasswordState extends State<ResetPassword> {
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: ListView(
-
           children: [
             SizedBox(
               height: 40,
             ),
             Form(
-
               child: Padding(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(25),
                 child: TextFormField(
                   validator: MultiValidator([
                     EmailValidator(errorText: 'البريد الالكتروني غير صالح'),
@@ -49,7 +48,6 @@ class _ResetPasswordState extends State<ResetPassword> {
                     border: OutlineInputBorder(),
                   ),
                 ),
-
               ),
             ),
             SizedBox(
@@ -59,16 +57,20 @@ class _ResetPasswordState extends State<ResetPassword> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ButtonTheme(
-                  height:50,
-                  minWidth:80,
+                  height: 50,
+                  minWidth: 80,
                   child: FlatButton(
-                      color: Colors.teal[500],
+                      color: Colors.teal[600],
                       padding: EdgeInsets.symmetric(horizontal: 90),
-                      onPressed: (){
-                        _auth.sendPasswordResetEmail(email: email);
+                      onPressed: () {
+                        _auth.sendPasswordResetEmail(email: email).then((value) => Scaffold.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text(
+                                    'تم تحديث البريد الالكتروني بنجاح'))));
                         Navigator.of(context).pop();
                       },
-                      child: Text('ارسل',style:TextStyle(color:Colors.white,fontSize: 20))),
+                      child: Text('ارسل الطلب',
+                          style: TextStyle(color: Colors.white, fontSize: 20))),
                 ),
               ],
             )

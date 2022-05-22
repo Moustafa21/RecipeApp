@@ -52,15 +52,12 @@ class _RegisterState extends State<Register> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 30,
+                          height: 60,
                         ),
-                        Text(
+                        /* Text(
                           'انشاء حساب جديد',
-                          style: TextStyle(fontSize: 25),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
+                          style: TextStyle(fontSize: 20),
+                        ),*/
                         TextFormField(
                           validator: nameValidator,
                           onChanged: (val) {

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'itemCard2.dart';
-import 'itemCards.dart';
 import 'countryItems.dart';
+import 'itemCard2.dart';
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -27,7 +26,7 @@ class _HomeState extends State<Home> {
         if (!snapshot.hasData) {
           return Center(child: CircularProgressIndicator());
         } else if (snapshot.data?.size == 0) {
-          return Center(child: Text("لا يوجد وصفات"));
+          return Center(child: Text(".الوصفات غير متوفرة"));
         } else {
           return ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -49,7 +48,7 @@ class _HomeState extends State<Home> {
         if (!snapshot.hasData) {
           return Center(child: CircularProgressIndicator());
         } else if (snapshot.data?.size == 0) {
-          return Center(child: Text("لا يوجد مطابخ"));
+          return Center(child: Text(".المطابخ غير متوفرة"));
         } else {
           return ListView.builder(
               itemCount: 2,

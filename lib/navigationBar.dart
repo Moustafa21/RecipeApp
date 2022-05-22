@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/search1/search.dart';
+import 'package:untitled/search.dart';
 import 'account.dart';
 import 'favorites.dart';
 import 'filtercountries.dart';
@@ -60,17 +60,17 @@ class _bottomNavBarState extends State<bottomNavBar> {
           currentIndex: selectPageIndex,
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(Icons.home, size: 30), label: "الرئيسية"),
+                icon: Icon(Icons.home, size: 25), label: "الرئيسية"),
             BottomNavigationBarItem(
-              icon: Icon(Icons.filter_alt, size: 30),
+              icon: Icon(Icons.filter_alt, size: 25),
               label: "التصنيفات",
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.favorite, size: 30), label: "المفضلات"),
+                icon: Icon(Icons.favorite, size: 25), label: "المفضلات"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle, size: 30), label: "حسابي"),
+                icon: Icon(Icons.account_circle, size: 25), label: "حسابي"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.search, size: 30), label: "بحث"),
+                icon: Icon(Icons.search, size: 25), label: "بحث"),
           ],
         ),
       ),
