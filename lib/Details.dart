@@ -77,6 +77,7 @@ class _Details extends State<Details> {
 
   var _auth = FirebaseAuth.instance;
   var logedInUSer;
+
   getCuurrentUser() {
     User? user = _auth.currentUser?.email as User?;
     logedInUSer = user?.email;
@@ -98,7 +99,7 @@ class _Details extends State<Details> {
       final FirebaseAuth auth = FirebaseAuth.instance;
       var currentUser = auth.currentUser;
       CollectionReference collectionRef =
-      FirebaseFirestore.instance.collection("users-favorites");
+          FirebaseFirestore.instance.collection("users-favorites");
       return collectionRef
           .doc(currentUser!.email)
           .collection("items")
@@ -116,7 +117,7 @@ class _Details extends State<Details> {
       final FirebaseAuth auth = FirebaseAuth.instance;
       var currentUser = auth.currentUser;
       CollectionReference collectionRef =
-      FirebaseFirestore.instance.collection("users-favorites");
+          FirebaseFirestore.instance.collection("users-favorites");
       return collectionRef
           .doc(currentUser!.email)
           .collection("items")
@@ -126,7 +127,7 @@ class _Details extends State<Details> {
 
     Future delete() async {
       CollectionReference collectionRef =
-      FirebaseFirestore.instance.collection("Items");
+          FirebaseFirestore.instance.collection("Items");
       return collectionRef
           .doc(widget.country)
           .collection(widget.country)
@@ -191,7 +192,7 @@ class _Details extends State<Details> {
               child: AlertDialog(
                 title: const Text('برجاء التأكيد',
                     style:
-                    TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
                 content: Text("هل انت متأكد من مسح ${widget.name}؟",
                     style: TextStyle(
                       fontSize: 20,
@@ -261,15 +262,15 @@ class _Details extends State<Details> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => durEdit(
-                                widget.category,
-                                widget.country,
-                                widget.docID,
-                                widget.name,
-                                widget.ing,
-                                widget.steps,
-                                widget.url,
-                                widget.duration,
-                              ))),
+                                    widget.category,
+                                    widget.country,
+                                    widget.docID,
+                                    widget.name,
+                                    widget.ing,
+                                    widget.steps,
+                                    widget.url,
+                                    widget.duration,
+                                  ))),
                       icon: Icon(Icons.edit)),
                   visible: _auth.currentUser?.email == 'admin@gmail.com'
                       ? true
@@ -279,22 +280,22 @@ class _Details extends State<Details> {
                     padding: EdgeInsets.only(right: 150),
                     iconSize: 35,
                     onPressed: () =>
-                    _auth.currentUser?.email == 'admin@gmail.com'
-                        ? Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => imgEdit(
-                              widget.category,
-                              widget.country,
-                              widget.docID,
-                              widget.name,
-                              widget.ing,
-                              widget.steps,
-                              widget.url,
-                              widget.duration,
-                            )))
-                        .then((value) => Navigator.of(context).pop())
-                        : sharing(),
+                        _auth.currentUser?.email == 'admin@gmail.com'
+                            ? Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => imgEdit(
+                                              widget.category,
+                                              widget.country,
+                                              widget.docID,
+                                              widget.name,
+                                              widget.ing,
+                                              widget.steps,
+                                              widget.url,
+                                              widget.duration,
+                                            )))
+                                .then((value) => Navigator.of(context).pop())
+                            : sharing(),
                     icon: _auth.currentUser?.email == 'admin@gmail.com'
                         ? Icon(Icons.photo_camera_back_outlined)
                         : Icon(Icons.share)),
@@ -307,17 +308,17 @@ class _Details extends State<Details> {
                       child: IconButton(
                         iconSize: 25,
                         onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ingEdit(
-                                    widget.category,
-                                    widget.country,
-                                    widget.docID,
-                                    widget.name,
-                                    widget.ing,
-                                    widget.steps,
-                                    widget.url,
-                                    widget.duration)))
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ingEdit(
+                                        widget.category,
+                                        widget.country,
+                                        widget.docID,
+                                        widget.name,
+                                        widget.ing,
+                                        widget.steps,
+                                        widget.url,
+                                        widget.duration)))
                             .then((value) => Navigator.of(context).pop()),
                         icon: Icon(Icons.edit),
                       ),
@@ -349,17 +350,17 @@ class _Details extends State<Details> {
                       child: IconButton(
                         iconSize: 25,
                         onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => stepsEdit(
-                                    widget.category,
-                                    widget.country,
-                                    widget.docID,
-                                    widget.name,
-                                    widget.ing,
-                                    widget.steps,
-                                    widget.url,
-                                    widget.duration)))
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => stepsEdit(
+                                        widget.category,
+                                        widget.country,
+                                        widget.docID,
+                                        widget.name,
+                                        widget.ing,
+                                        widget.steps,
+                                        widget.url,
+                                        widget.duration)))
                             .then((value) => Navigator.of(context).pop()),
                         icon: Icon(Icons.edit),
                       ),
@@ -396,12 +397,12 @@ class _Details extends State<Details> {
               : isfav(),
           child: _auth.currentUser?.email == 'admin@gmail.com'
               ? Icon(
-            Icons.delete,
-            size: 30,
-          )
+                  Icons.delete,
+                  size: 30,
+                )
               : Icon(
-              _isFavorited ? Icons.favorite_sharp : Icons.favorite_border,
-              size: 25)),
+                  _isFavorited ? Icons.favorite_sharp : Icons.favorite_border,
+                  size: 25)),
     );
   }
 }

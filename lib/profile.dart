@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'resetPassword.dart';
 
 class myProfile extends StatefulWidget {
@@ -90,9 +90,9 @@ class _myProfileState extends State<myProfile> {
                             .updateEmail(newEmail)
                             .then((value) => showSpinner = true)
                             .then((value) => Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                                content: Text(
-                                    'تم تحديث البريد الالكتروني بنجاح'))))
+                                SnackBar(
+                                    content: Text(
+                                        'تم تحديث البريد الالكتروني بنجاح'))))
                             .then((value) => _controller.clear())
                             .then((value) => showSpinner = false);
                       },

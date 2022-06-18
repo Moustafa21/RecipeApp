@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'adminNavBar.dart';
 import 'navigationBar.dart';
 
@@ -14,6 +14,7 @@ class LoginSplash extends StatefulWidget {
 class _LoginSplashState extends State<LoginSplash> {
   bool spinner = true;
   var _auth = FirebaseAuth.instance;
+
   @override
   void initState() {
     super.initState();

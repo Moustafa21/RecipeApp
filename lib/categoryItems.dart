@@ -19,12 +19,13 @@ class category_items extends StatelessWidget {
 
   Future delete() async {
     CollectionReference collectionRef =
-    FirebaseFirestore.instance.collection("Items");
+        FirebaseFirestore.instance.collection("Items");
     return collectionRef.doc(country).collection(country).doc(title).delete();
   }
 
   var _auth = FirebaseAuth.instance;
   var logedInUSer;
+
   getCuurrentUser() {
     User? user = _auth.currentUser?.email as User?;
     logedInUSer = user?.email;

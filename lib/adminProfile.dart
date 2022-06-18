@@ -14,6 +14,7 @@ class adminAcc extends StatefulWidget {
 class _adminAccState extends State<adminAcc> {
   final _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -66,9 +67,9 @@ class _adminAccState extends State<adminAcc> {
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu(
       {Key? key,
-        required this.text,
-        required this.icon,
-        required this.onpressed})
+      required this.text,
+      required this.icon,
+      required this.onpressed})
       : super(key: key);
 
   final String text;
@@ -93,7 +94,7 @@ class ProfileMenu extends StatelessWidget {
             Expanded(
                 child: Text(text,
                     style:
-                    TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600))),
             Icon(Icons.arrow_forward_ios_rounded),
           ],
         ),

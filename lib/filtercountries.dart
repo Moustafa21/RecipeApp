@@ -29,7 +29,7 @@ class FilterCountry extends StatelessWidget {
             } else if (snapshot.data?.size == 0) {
               return Center(
                   child:
-                  Text(".لا توجد مطابخ، تواصل معنا لاضافة مطابخك المفضلة"));
+                      Text(".لا توجد مطابخ، تواصل معنا لاضافة مطابخك المفضلة"));
             } else {
               return ListView.builder(
                 padding: EdgeInsets.all(25),

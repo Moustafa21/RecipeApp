@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'login.dart';
 
 class Register extends StatefulWidget {
@@ -29,12 +29,13 @@ class _RegisterState extends State<Register> {
         errorText: 'كلمة المرور يجب ان تحتوي على علامة مميزة واحدة على الاقل'),
   ]);
   var nameValidator =
-  MultiValidator([RequiredValidator(errorText: 'الاسم مطلوب')]);
+      MultiValidator([RequiredValidator(errorText: 'الاسم مطلوب')]);
   var mobileValidator = MultiValidator([
     RequiredValidator(errorText: 'رقم الهاتف مطلوب'),
     MinLengthValidator(11, errorText: 'رقم الهاتف غير صحيح'),
   ]);
   bool visiblityPassword = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,7 +126,7 @@ class _RegisterState extends State<Register> {
                     onPressed: () async {
                       if (_formkey.currentState!.validate()) {
                         var connectivityResult =
-                        await (Connectivity().checkConnectivity());
+                            await (Connectivity().checkConnectivity());
                         if (connectivityResult != ConnectivityResult.mobile &&
                             connectivityResult != ConnectivityResult.wifi) {
                           Scaffold.of(context).showSnackBar(SnackBar(
@@ -137,12 +138,11 @@ class _RegisterState extends State<Register> {
                           try {
                             await _auth
                                 .createUserWithEmailAndPassword(
-                                email: email, password: password)
+                                    email: email, password: password)
                                 .then((value) => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Login())));
-
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Login())));
                             setState(() {
                               spinner = false;
                             });

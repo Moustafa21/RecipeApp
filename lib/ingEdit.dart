@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'Details.dart';
 
@@ -78,17 +79,17 @@ class _ingEditState extends State<ingEdit> {
                           .update({
                         'Ingredients': Ingredients,
                       }).then((value) => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Details(
-                                  widget.title,
-                                  widget.url,
-                                  widget.duration,
-                                  Ingredients,
-                                  widget.steps,
-                                  widget.category,
-                                  widget.country,
-                                  widget.docID))));
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Details(
+                                      widget.title,
+                                      widget.url,
+                                      widget.duration,
+                                      Ingredients,
+                                      widget.steps,
+                                      widget.category,
+                                      widget.country,
+                                      widget.docID))));
                     },
                     child: Text(
                       'حدث المكونات',

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:untitled/Details.dart';
+
 class itemCards2 extends StatelessWidget {
   final String imageUrl;
   final String title;
@@ -38,7 +39,7 @@ class itemCards2 extends StatelessWidget {
     final FirebaseAuth auth = FirebaseAuth.instance;
     var currentUser = auth.currentUser;
     CollectionReference collectionRef =
-    FirebaseFirestore.instance.collection("users-favorites");
+        FirebaseFirestore.instance.collection("users-favorites");
     return collectionRef
         .doc(currentUser!.email)
         .collection("items")
@@ -57,7 +58,7 @@ class itemCards2 extends StatelessWidget {
     final FirebaseAuth auth = FirebaseAuth.instance;
     var currentUser = auth.currentUser;
     CollectionReference collectionRef =
-    FirebaseFirestore.instance.collection("users-favorites");
+        FirebaseFirestore.instance.collection("users-favorites");
     return collectionRef
         .doc(currentUser!.email)
         .collection("items")
@@ -67,7 +68,7 @@ class itemCards2 extends StatelessWidget {
 
   Future delete() async {
     CollectionReference collectionRef =
-    FirebaseFirestore.instance.collection("Items");
+        FirebaseFirestore.instance.collection("Items");
     return collectionRef
         .doc(country)
         .collection(country)
@@ -102,7 +103,7 @@ class itemCards2 extends StatelessWidget {
                 ),
                 child: Image.network(
                   imageUrl,
-                  height: 150,
+                  height: 130,
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),

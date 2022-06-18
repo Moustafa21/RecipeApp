@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -114,16 +114,16 @@ class _AddState extends State<Add> {
                           color: Colors.grey[200],
                           child: (_image != null)
                               ? Image.file(
-                            _image,
-                            width: 120,
-                            height: 120,
-                            fit: BoxFit.fill,
-                          )
+                                  _image,
+                                  width: 120,
+                                  height: 120,
+                                  fit: BoxFit.fill,
+                                )
                               : Image(
-                            image: AssetImage('assets/upload.png'),
-                            width: 100,
-                            height: 100,
-                          )),
+                                  image: AssetImage('assets/upload.png'),
+                                  width: 100,
+                                  height: 100,
+                                )),
                       InkWell(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -150,7 +150,7 @@ class _AddState extends State<Add> {
                         child: TextFormField(
                           controller: ctrl1,
                           validator:
-                          RequiredValidator(errorText: 'خانة مطلوبة'),
+                              RequiredValidator(errorText: 'خانة مطلوبة'),
                           decoration: InputDecoration(
                             labelText: 'اسم الوصفة',
                             labelStyle: TextStyle(fontSize: 20),
@@ -185,7 +185,7 @@ class _AddState extends State<Add> {
                           child: TextFormField(
                             controller: ctrl3,
                             validator:
-                            RequiredValidator(errorText: 'خانة مطلوبة'),
+                                RequiredValidator(errorText: 'خانة مطلوبة'),
                             decoration: InputDecoration(
                               labelText: 'المكونات',
                               labelStyle: TextStyle(fontSize: 20),
@@ -201,7 +201,7 @@ class _AddState extends State<Add> {
                           child: TextFormField(
                             controller: ctrl4,
                             validator:
-                            RequiredValidator(errorText: 'خانة مطلوبة'),
+                                RequiredValidator(errorText: 'خانة مطلوبة'),
                             decoration: InputDecoration(
                               labelText: 'خطوات التحضير',
                               labelStyle: TextStyle(fontSize: 20),
@@ -281,6 +281,7 @@ class _AddState extends State<Add> {
                               items: <String>[
                                 'دجاج',
                                 'لحوم',
+                                'خضار',
                                 'مأكولات بحرية',
                                 'مقبلات',
                                 'معجنات',
@@ -308,22 +309,22 @@ class _AddState extends State<Add> {
                                   .doc(category)
                                   .collection(category)
                                   .add({
-                                'url': downloadUrl,
-                                'Recipe': Recipe,
-                                'Ingredients': Ingredients,
-                                'RecipeName': RecipeName,
-                                'RecipeTime': RecipeTime,
-                              })
+                                    'url': downloadUrl,
+                                    'Recipe': Recipe,
+                                    'Ingredients': Ingredients,
+                                    'RecipeName': RecipeName,
+                                    'RecipeTime': RecipeTime,
+                                  })
                                   .then((value) => ctrl1.clear())
                                   .then((value) => ctrl2.clear())
                                   .then((value) => ctrl3.clear())
                                   .then((value) => ctrl4.clear())
                                   .then((value) => Scaffold.of(context)
-                                  .showSnackBar(SnackBar(
-                                  content: Text(
-                                    "تم اضافة ${RecipeName}",
-                                    style: TextStyle(fontSize: 10),
-                                  ))));
+                                          .showSnackBar(SnackBar(
+                                              content: Text(
+                                        "تم اضافة ${RecipeName}",
+                                        style: TextStyle(fontSize: 10),
+                                      ))));
                           },
                           child: Text('اضف الوصفة',
                               style: TextStyle(

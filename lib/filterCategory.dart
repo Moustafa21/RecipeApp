@@ -5,6 +5,7 @@ import '../categoryItems.dart';
 class Filter extends StatelessWidget {
   final String country;
   final _firestore = FirebaseFirestore.instance;
+
   Filter(this.country);
 
   @override

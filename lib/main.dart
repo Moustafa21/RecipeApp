@@ -3,12 +3,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:untitled/login.dart';
 import 'package:untitled/splash.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -45,8 +45,3 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold();
   }
 }
-
-
-
-
-

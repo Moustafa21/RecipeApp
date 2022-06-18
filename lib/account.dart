@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'about.dart';
 import 'chat.dart';
 import 'login.dart';
-import 'profile.dart';
+import 'Profile.dart';
 
 class Account extends StatefulWidget {
   const Account({Key? key}) : super(key: key);
@@ -54,14 +54,14 @@ class _AccountState extends State<Account> {
                       context, MaterialPageRoute(builder: (context) => Chat()));
                 },
               ),
-              ProfileMenu(
-                text: 'عن المطورين',
-                icon: Icons.info,
-                onpressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => About()));
-                },
-              ),
+              // ProfileMenu(
+              //   text: 'عن المطورين',
+              //   icon: Icons.info,
+              //   onpressed: () {
+              //     Navigator.push(context,
+              //         MaterialPageRoute(builder: (context) => About()));
+              //   },
+              // ),
               ProfileMenu(
                 text: 'تسجيل الخروج',
                 icon: Icons.logout,

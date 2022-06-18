@@ -23,6 +23,7 @@ class itemCards extends StatefulWidget {
       this.category,
       this.country,
       this.docID);
+
   State<StatefulWidget> createState() => _itemCardsState();
 }
 
@@ -102,7 +103,7 @@ class _itemCardsState extends State<itemCards> {
     final FirebaseAuth auth = FirebaseAuth.instance;
     var currentUser = auth.currentUser;
     CollectionReference collectionRef =
-    FirebaseFirestore.instance.collection("users-favorites");
+        FirebaseFirestore.instance.collection("users-favorites");
     return collectionRef
         .doc(currentUser!.email)
         .collection("items")
@@ -124,7 +125,7 @@ class _itemCardsState extends State<itemCards> {
     final FirebaseAuth auth = FirebaseAuth.instance;
     var currentUser = auth.currentUser;
     CollectionReference collectionRef =
-    FirebaseFirestore.instance.collection("users-favorites");
+        FirebaseFirestore.instance.collection("users-favorites");
     return collectionRef
         .doc(currentUser!.email)
         .collection("items")
@@ -134,7 +135,7 @@ class _itemCardsState extends State<itemCards> {
 
   Future delete() async {
     CollectionReference collectionRef =
-    FirebaseFirestore.instance.collection("Items");
+        FirebaseFirestore.instance.collection("Items");
     return collectionRef
         .doc(widget.country)
         .collection(widget.country)
@@ -182,6 +183,7 @@ class _itemCardsState extends State<itemCards> {
 
   var _auth = FirebaseAuth.instance;
   var logedInUSer;
+
   getCuurrentUser() {
     User? user = _auth.currentUser?.email as User?;
     logedInUSer = user?.email;
@@ -216,7 +218,7 @@ class _itemCardsState extends State<itemCards> {
           onTap: () => selectMeal(context),
           child: Card(
             shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             elevation: 4,
             margin: EdgeInsets.all(10),
             child: Column(
@@ -242,7 +244,7 @@ class _itemCardsState extends State<itemCards> {
                         width: 220,
                         color: Colors.black54,
                         padding:
-                        EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                            EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                         child: Text(widget.title,
                             style: TextStyle(
                                 fontSize: 25,
@@ -279,9 +281,9 @@ class _itemCardsState extends State<itemCards> {
                                   onPressed: () => isfav(),
                                   icon: _isFavorited
                                       ? Icon(
-                                    Icons.favorite_sharp,
-                                    color: Colors.red,
-                                  )
+                                          Icons.favorite_sharp,
+                                          color: Colors.red,
+                                        )
                                       : Icon(Icons.favorite_border),
                                   iconSize: 30,
                                 ),
@@ -295,19 +297,19 @@ class _itemCardsState extends State<itemCards> {
                         children: [
                           _auth.currentUser?.email == 'admin@gmail.com'
                               ? Container(
-                            margin: EdgeInsets.only(right: 180),
-                            child: IconButton(
-                              onPressed: () => _delete(context),
-                              icon: Icon(Icons.delete),
-                              color: Colors.red,
-                              iconSize: 30,
-                            ),
-                          )
+                                  margin: EdgeInsets.only(right: 180),
+                                  child: IconButton(
+                                    onPressed: () => _delete(context),
+                                    icon: Icon(Icons.delete),
+                                    color: Colors.red,
+                                    iconSize: 30,
+                                  ),
+                                )
                               : IconButton(
-                            onPressed: () => sharing(),
-                            icon: Icon(Icons.share),
-                            iconSize: 30,
-                          ),
+                                  onPressed: () => sharing(),
+                                  icon: Icon(Icons.share),
+                                  iconSize: 30,
+                                ),
                         ],
                       ),
                     ],

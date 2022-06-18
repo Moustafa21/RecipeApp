@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'Details.dart';
 
@@ -81,17 +81,17 @@ class _stepsEditState extends State<stepsEdit> {
                           .update({
                         'Recipe': Recipe,
                       }).then((value) => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Details(
-                                  widget.title,
-                                  widget.url,
-                                  widget.duration,
-                                  widget.ing,
-                                  Recipe,
-                                  widget.category,
-                                  widget.country,
-                                  widget.docID))));
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Details(
+                                      widget.title,
+                                      widget.url,
+                                      widget.duration,
+                                      widget.ing,
+                                      Recipe,
+                                      widget.category,
+                                      widget.country,
+                                      widget.docID))));
                     },
                     child: Text('حدث الطريقة',
                         style: TextStyle(color: Colors.white, fontSize: 20)),

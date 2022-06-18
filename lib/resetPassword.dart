@@ -12,6 +12,7 @@ class ResetPassword extends StatefulWidget {
 class _ResetPasswordState extends State<ResetPassword> {
   final _auth = FirebaseAuth.instance;
   late String email;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -13,12 +13,12 @@ class About extends StatefulWidget {
 class _AboutState extends State<About> {
   final Uri MoGit = Uri.parse('https://github.com/Moustafa21');
   final Uri MoIN =
-  Uri.parse('https://www.linkedin.com/in/mostafa-magdy-01ab34180/');
+      Uri.parse('https://www.linkedin.com/in/mostafa-magdy-01ab34180/');
   final String MoGM = 'tatamagdy2@gmail.com';
   final String MoNO = '01157392619';
   final Uri MsGit = Uri.parse('https://github.com/MahmodSamir');
   final Uri MsIN =
-  Uri.parse('https://www.linkedin.com/in/mahmoud-samir-a786a1214/');
+      Uri.parse('https://www.linkedin.com/in/mahmoud-samir-a786a1214/');
   final String MsGM = 'mahmoudasmirms01@gmail.com@gmail.com';
   final String MsNO = '01113189795';
 

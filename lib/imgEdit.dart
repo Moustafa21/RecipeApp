@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -84,16 +84,16 @@ class _imgEditState extends State<imgEdit> {
                       color: Colors.grey[200],
                       child: (_image != null)
                           ? Image.file(
-                        _image,
-                        width: 150,
-                        height: 150,
-                        fit: BoxFit.fill,
-                      )
+                              _image,
+                              width: 150,
+                              height: 150,
+                              fit: BoxFit.fill,
+                            )
                           : Image(
-                        image: AssetImage('assets/upload.png'),
-                        width: 160,
-                        height: 160,
-                      )),
+                              image: AssetImage('assets/upload.png'),
+                              width: 160,
+                              height: 160,
+                            )),
                   InkWell(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -132,17 +132,17 @@ class _imgEditState extends State<imgEdit> {
                             .update({
                           'url': downloadUrl,
                         }).then((value) => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Details(
-                                    widget.title,
-                                    downloadUrl,
-                                    widget.duration,
-                                    widget.ing,
-                                    widget.steps,
-                                    widget.category,
-                                    widget.country,
-                                    widget.docID))));
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Details(
+                                        widget.title,
+                                        downloadUrl,
+                                        widget.duration,
+                                        widget.ing,
+                                        widget.steps,
+                                        widget.category,
+                                        widget.country,
+                                        widget.docID))));
                       },
                       child: Text(
                         'حدث الصورة',

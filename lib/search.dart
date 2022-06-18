@@ -82,14 +82,14 @@ class _SearchState extends State<Search> {
           body: isExcecuted
               ? searchedData()
               : Directionality(
-            textDirection: TextDirection.rtl,
-            child: Container(
-              child: Text(
-                'ابحث عن الوصفة',
-                style: TextStyle(fontSize: 35),
-              ),
-            ),
-          ),
+                  textDirection: TextDirection.rtl,
+                  child: Container(
+                    child: Text(
+                      'ابحث عن الوصفة',
+                      style: TextStyle(fontSize: 35),
+                    ),
+                  ),
+                ),
         ),
       ),
     );

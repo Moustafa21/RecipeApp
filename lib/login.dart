@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+
 import 'loginSplash.dart';
 import 'resetPassword.dart';
 import 'register.dart';
@@ -111,7 +112,7 @@ class _LoginState extends State<Login> {
                       onPressed: () async {
                         if (_formkey.currentState!.validate()) {
                           var connectivityResult =
-                          await (Connectivity().checkConnectivity());
+                              await (Connectivity().checkConnectivity());
                           if (connectivityResult != ConnectivityResult.mobile &&
                               connectivityResult != ConnectivityResult.wifi) {
                             Scaffold.of(context).showSnackBar(SnackBar(
